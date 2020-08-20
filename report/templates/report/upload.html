@@ -1,0 +1,55 @@
+{% load static %}
+
+<h1>Upload Report PDF</h1>
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <br>Family ID:</br>
+    <input type="text" name="family_id">
+    <br>Sample ID:</br>
+    <input type="text" name="sample_id">
+    <br>Sample Name:</br>
+    <input type="text" name="sample_name">
+    <br>Disease:</br>
+    <input type="text" name="disease">
+    <br>Gene:</br>
+    <input type="text" name="gene">
+    <br>Variant:</br>
+    <input type="text" name="variant">
+    <br>PDF:</br>
+    <input type="file" name="pdf">
+    <button type="submit">Upload</button>
+  </form>
+  <h1>Hi!!!</h1>
+  {% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.name }}
+        {{ field.errors }}
+        {{ field.label_tag }}
+    </div>
+  {% endfor %}
+
+  <h1>Hi!!!</h1>
+
+  {% if form.errors %}
+    {% for field in form %}
+      {% for error in field.errors %}
+        <div class="alert alert-danger">
+          <strong>{{ error|escape }}</strong>
+        </div>
+      {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if uploaded_file_url %}
+    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+  {% endif %}
+
+  <p><a href="{% url 'report:index' %}">Return to home</a></p>
+{% endblock %}
