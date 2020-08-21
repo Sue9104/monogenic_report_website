@@ -4,11 +4,10 @@ from datetime import datetime
 # Create your models here.
 def upload_filename(instance, filename):
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    new_filename = "documents/{family}-{sample}-{name}-{gene}-{upload}.pdf".format(
-        family = instance.family_id,
-        sample = instance.sample_id,
-        name = instance.name,
-        gene = instance.gene,
+    new_filename = "documents/{family}-{name}-{gene}-{upload}.pdf".format(
+        family = instance.family.family,
+        name = instance.family.name,
+        gene = instance.clinical_information.gene,
         upload = timestamp
     )
     print("OLD: " + filename)
@@ -16,6 +15,7 @@ def upload_filename(instance, filename):
     return new_filename
 
 class ClinicalInformation(models.Model):
+    clinical_id = models.AutoField(primary_key=True)
     disease = models.CharField(max_length = 200, blank=True, null=True)
     gene = models.CharField(max_length = 200, blank=True, null=True)
     variant = models.CharField(max_length = 200, blank=True, null=True)
@@ -29,14 +29,13 @@ class ClinicalInformation(models.Model):
         return "{}:{}".format(self.disease, self.variant)
 
 class Family(models.Model):
-    family_id = models.CharField(max_length = 200, blank=True, null=True)
-    sample_id = models.CharField(max_length = 200, blank=True, null=True)
-    sample_name = models.CharField(max_length = 200, blank=True, null=True)
+    family_id = models.AutoField(primary_key=True)
+    family = models.CharField(max_length = 200, blank=True, null=True)
+    name = models.CharField(max_length = 200, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now = True, blank=True)
-    created_at = models.DateTimeField(auto_now_add = True, blank=True)
     class Meta:
         unique_together = (
-            ('family_id', 'sample_name')
+            ('family', 'name')
         )
 
 class UploadPDF(models.Model):
@@ -46,5 +45,7 @@ class UploadPDF(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return join(" ",
-                    (self.family.sample_name , self.clinical_information.disease, self.clinical_information.gene)
+                    (self.family.name ,
+                     self.clinical_information.disease,
+                     self.clinical_information.gene)
                     )

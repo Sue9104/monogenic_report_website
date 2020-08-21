@@ -5,7 +5,7 @@ from .models import ClinicalInformation, Family, UploadPDF
 class FamilyForm(forms.ModelForm):
     class Meta:
         model = Family
-        fields = ('family_id', 'sample_id', 'sample_name')
+        fields = ('family', 'name')
         error_messages = {
             NON_FIELD_ERRORS: {
                 'unique_together': "%(model_name)s's %(field_labels)s are not unique.",
