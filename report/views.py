@@ -9,7 +9,11 @@ from .models import Family, ClinicalInformation, UploadPDF
 
 # Create your views here.
 def index(request):
-    return render(request, 'report/index.html')
+    latest_pdfs = UploadPDF.objects.order_by('-uploaded_at')[:10]
+    print("\n={}=\n".format(latest_pdfs[0].family.family) )
+    return render(request, 'report/index.html', {
+        'latest_pdfs': latest_pdfs
+    })
 
 def model_form_upload(request):
     if request.method == 'POST':
