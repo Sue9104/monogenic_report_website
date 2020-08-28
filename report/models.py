@@ -25,8 +25,6 @@ class ClinicalInformation(models.Model):
         unique_together = (
             ('disease', 'gene', 'variant')
         )
-    def __str__(self):
-        return "{}:{}".format(self.disease, self.variant)
 
 class Family(models.Model):
     family_id = models.AutoField(primary_key=True)

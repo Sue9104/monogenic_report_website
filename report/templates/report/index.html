@@ -6,15 +6,17 @@
       <th>家系号</th>
       <th>样本名</th>
       <th>疾病名称</th>
+      <th>PDF</th>
       <th>上传时间</th>
     </tr>
   </thead>
   <tbody>
     {% for pdf in latest_pdfs %}
-    <tr onclick="document.location = '/media/documents/{{ pdf.family.family }}-{{ pdf.family.name }}-{{ pdf.clinical_information.gene }}.pdf'; ">
+    <tr onclick="document.location = '/media/documents/{{ pdf.pdf }}'; ">
         <td>{{ pdf.family.family }}</td>
         <td>{{ pdf.family.name }}</td>
         <td>{{ pdf.clinical_information.disease }}</td>
+        <td>{{ pdf.pdf }}</td>
         <td>{{ pdf.uploaded_at }}</td>
       </tr>
     {% endfor %}

@@ -5,7 +5,7 @@
 {% block content %}
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <br>Family ID:</br>
+    <br>Family:</br>
     <input type="text" name="family">
     <br>Name:</br>
     <input type="text" name="name">
@@ -19,7 +19,7 @@
     <input type="file" name="pdf">
     <button type="submit">Upload</button>
   </form>
-  <h1>Hi!!!</h1>
+
   {% for field in form %}
     <div class="fieldWrapper">
         {{ field.name }}
@@ -28,21 +28,13 @@
     </div>
   {% endfor %}
 
-  <h1>Hi!!!</h1>
 
-  {% if form.errors %}
-    {% for field in form %}
-      {% for error in field.errors %}
-        <div class="alert alert-danger">
-          <strong>{{ error|escape }}</strong>
-        </div>
+  {% if messages %}
+    <script>
+      {% for msg in messages %}
+        alert('{{ msg.message }}');
       {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-        <div class="alert alert-danger">
-            <strong>{{ error|escape }}</strong>
-        </div>
-    {% endfor %}
+    </script>
   {% endif %}
 
   {% if uploaded_file_url %}
