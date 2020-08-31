@@ -1,0 +1,18 @@
+.form-group.inline, .form-group.inline > * {
+  display: inline-block !important;
+  padding: 0em;
+}
+
+.form-group.inline {
+  margin-right: 3em;
+  padding-left: 1.2em;
+}
+
+.form-group.inline .col-form-label {
+  text-align: justify;
+}
+
+.btn.btn-lg.btn-primary {
+  width: 5em;
+  text-align: center;
+}

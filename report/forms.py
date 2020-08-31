@@ -1,10 +1,10 @@
 from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS
-from .models import ClinicalInformation, Family, UploadPDF
+from .models import Pathogenicity, Sample, Report
 
-class FamilyForm(forms.ModelForm):
+class SampleForm(forms.ModelForm):
     class Meta:
-        model = Family
+        model = Sample
         fields = ('family', 'name')
         error_messages = {
             NON_FIELD_ERRORS: {
@@ -12,9 +12,9 @@ class FamilyForm(forms.ModelForm):
             }
         }
 
-class ClinicalInformationForm(forms.ModelForm):
+class PathogenicityForm(forms.ModelForm):
     class Meta:
-        model = ClinicalInformation
+        model = Pathogenicity
         fields = ('disease', 'gene', 'variant')
         error_messages = {
             NON_FIELD_ERRORS: {
@@ -22,7 +22,7 @@ class ClinicalInformationForm(forms.ModelForm):
             }
         }
 
-class UploadPDForm(forms.ModelForm):
+class ReportForm(forms.ModelForm):
     class Meta:
-        model = UploadPDF
-        fields = ('clinical_information', 'family', 'pdf')
+        model = Report
+        fields = ('sample', 'pathogenicity', 'pdf')

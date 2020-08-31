@@ -1,24 +1,125 @@
-<h1>单基因病报告数据库</h1>
-<h2>最近上传</h2>
-<table class="latest_pdfs">
-  <thead>
-    <tr>
-      <th>家系号</th>
-      <th>样本名</th>
-      <th>疾病名称</th>
-      <th>PDF</th>
-      <th>上传时间</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for pdf in latest_pdfs %}
-    <tr onclick="document.location = '/media/documents/{{ pdf.pdf }}'; ">
-        <td>{{ pdf.family.family }}</td>
-        <td>{{ pdf.family.name }}</td>
-        <td>{{ pdf.clinical_information.disease }}</td>
-        <td>{{ pdf.pdf }}</td>
-        <td>{{ pdf.uploaded_at }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'report/bootstrap-4.5.0-dist/css/bootstrap.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'report/css/index.css' %}" >
+
+    <title>报告数据库-首页</title>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img src="{% static 'report/pic/ipmch-logo.png' %}" width="230" height="50" class="d-inline-block align-center" alt="" loading="lazy">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'report:index' %}"> 首&nbsp;&nbsp;&nbsp;&nbsp;页 <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'report:upload' %}">报告上传</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'report:index' %}">数据统计<span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+
+    <div class="container">
+      <div class="col-md-12 text-center" style="margin-bottom: 2em;">
+        <h1>单基因病报告数据库</h1>
+      </div>
+        <!-- Search Form -->
+        <form method="get" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="form-group inline col-md-3">
+              <label for="family" class="col-md-3 col-form-label">家系号</label>
+              <div class="col-md-8">
+                <input type="text" class="form-control " name="family">
+              </div>
+            </div>
+            <div class="form-group inline col-md-3">
+              <label for="name" class="col-md-3 col-form-label">姓&nbsp;&nbsp;&nbsp;名</label>
+              <div class="col-md-8">
+                <input type="text" class="form-control" name="name">
+              </div>
+            </div>
+            <div class="form-group inline col-md-3">
+              <label for="disease" class="col-md-3 col-form-label">疾&nbsp;&nbsp;&nbsp;病</label>
+              <div class="col-md-8">
+                <input type="text" class="form-control" name="disease">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group inline col-md-3">
+              <label for="gene" class="col-md-3 col-form-label">基因</label>
+              <div class="col-md-8">
+                <input type="text" class="form-control" name="gene">
+              </div>
+            </div>
+            <div class="form-group inline col-md-3">
+              <label for="variant" class="col-md-3 col-form-label">致病变异</label>
+              <div class="col-md-8">
+                <input type="text" class="form-control" name="variant">
+              </div>
+            </div>
+            <div class="form-group inline col-md-1">
+              <button type="submit" class="btn btn-lg btn-primary"> 搜索 </button>
+            </div>
+            <div class="form-group inline col-md-2">
+              <a href="{% url 'report:upload' %}" class="btn btn-lg btn-primary">新建</a>
+            </div>
+          </div>
+        </form>
+
+      <!-- Display Table -->
+      <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th>家系号</th>
+            <th>样本名</th>
+            <th>疾病名称</th>
+            <th>基因</th>
+            <th>上传时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for report in latest_reports %}
+          <tr onclick="document.location = '/media/{{ report.pdf }}'; ">
+              <td>{{ report.sample.family }}</td>
+              <td>{{ report.sample.name }}</td>
+              <td>{{ report.pathogenicity.disease }}</td>
+              <td>{{ report.pathogenicity.gene }}</td>
+              <td>{{ report.uploaded_at }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'report/jquery.slim.min.js' %}" ></script>
+    <script src="{% static 'report/popper.min.js' %}" ></script>
+    <script src="{% static 'report/bootstrap-4.5.0-dist/js/bootstrap.min.js' %}" ></script>
+  </body>
+</html>
