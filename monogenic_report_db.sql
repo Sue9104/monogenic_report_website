@@ -21,6 +21,300 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO postgres;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
 -- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -57,11 +351,24 @@ ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations
 
 
 --
--- Name: report_clinicalinformation; Type: TABLE; Schema: public; Owner: postgres
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.report_clinicalinformation (
-    clinical_id integer NOT NULL,
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- Name: report_pathogenicity; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.report_pathogenicity (
+    id integer NOT NULL,
     disease character varying(200),
     gene character varying(200),
     variant character varying(200),
@@ -69,13 +376,13 @@ CREATE TABLE public.report_clinicalinformation (
 );
 
 
-ALTER TABLE public.report_clinicalinformation OWNER TO postgres;
+ALTER TABLE public.report_pathogenicity OWNER TO postgres;
 
 --
--- Name: report_clinicalinformation_clinical_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: report_pathogenicity_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.report_clinicalinformation_clinical_id_seq
+CREATE SEQUENCE public.report_pathogenicity_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -84,34 +391,71 @@ CREATE SEQUENCE public.report_clinicalinformation_clinical_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.report_clinicalinformation_clinical_id_seq OWNER TO postgres;
+ALTER TABLE public.report_pathogenicity_id_seq OWNER TO postgres;
 
 --
--- Name: report_clinicalinformation_clinical_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: report_pathogenicity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.report_clinicalinformation_clinical_id_seq OWNED BY public.report_clinicalinformation.clinical_id;
+ALTER SEQUENCE public.report_pathogenicity_id_seq OWNED BY public.report_pathogenicity.id;
 
 
 --
--- Name: report_family; Type: TABLE; Schema: public; Owner: postgres
+-- Name: report_report; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.report_family (
-    family_id integer NOT NULL,
+CREATE TABLE public.report_report (
+    id integer NOT NULL,
+    pdf character varying(100) NOT NULL,
+    uploaded_at timestamp with time zone NOT NULL,
+    pathogenicity_id integer NOT NULL,
+    sample_id integer NOT NULL
+);
+
+
+ALTER TABLE public.report_report OWNER TO postgres;
+
+--
+-- Name: report_report_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.report_report_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.report_report_id_seq OWNER TO postgres;
+
+--
+-- Name: report_report_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.report_report_id_seq OWNED BY public.report_report.id;
+
+
+--
+-- Name: report_sample; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.report_sample (
+    id integer NOT NULL,
     family character varying(200),
     name character varying(200),
     updated_at timestamp with time zone NOT NULL
 );
 
 
-ALTER TABLE public.report_family OWNER TO postgres;
+ALTER TABLE public.report_sample OWNER TO postgres;
 
 --
--- Name: report_family_family_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: report_sample_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.report_family_family_id_seq
+CREATE SEQUENCE public.report_sample_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -120,35 +464,32 @@ CREATE SEQUENCE public.report_family_family_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.report_family_family_id_seq OWNER TO postgres;
+ALTER TABLE public.report_sample_id_seq OWNER TO postgres;
 
 --
--- Name: report_family_family_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: report_sample_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.report_family_family_id_seq OWNED BY public.report_family.family_id;
+ALTER SEQUENCE public.report_sample_id_seq OWNED BY public.report_sample.id;
 
 
 --
--- Name: report_uploadpdf; Type: TABLE; Schema: public; Owner: postgres
+-- Name: tutorial_person; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.report_uploadpdf (
+CREATE TABLE public.tutorial_person (
     id integer NOT NULL,
-    pdf character varying(100) NOT NULL,
-    uploaded_at timestamp with time zone NOT NULL,
-    clinical_information_id integer NOT NULL,
-    family_id integer NOT NULL
+    name character varying(100) NOT NULL
 );
 
 
-ALTER TABLE public.report_uploadpdf OWNER TO postgres;
+ALTER TABLE public.tutorial_person OWNER TO postgres;
 
 --
--- Name: report_uploadpdf_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: tutorial_person_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.report_uploadpdf_id_seq
+CREATE SEQUENCE public.tutorial_person_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -157,13 +498,69 @@ CREATE SEQUENCE public.report_uploadpdf_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.report_uploadpdf_id_seq OWNER TO postgres;
+ALTER TABLE public.tutorial_person_id_seq OWNER TO postgres;
 
 --
--- Name: report_uploadpdf_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: tutorial_person_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.report_uploadpdf_id_seq OWNED BY public.report_uploadpdf.id;
+ALTER SEQUENCE public.tutorial_person_id_seq OWNED BY public.tutorial_person.id;
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
 
 
 --
@@ -174,24 +571,145 @@ ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- Name: report_clinicalinformation clinical_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: report_pathogenicity id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.report_clinicalinformation ALTER COLUMN clinical_id SET DEFAULT nextval('public.report_clinicalinformation_clinical_id_seq'::regclass);
-
-
---
--- Name: report_family family_id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.report_family ALTER COLUMN family_id SET DEFAULT nextval('public.report_family_family_id_seq'::regclass);
+ALTER TABLE ONLY public.report_pathogenicity ALTER COLUMN id SET DEFAULT nextval('public.report_pathogenicity_id_seq'::regclass);
 
 
 --
--- Name: report_uploadpdf id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: report_report id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.report_uploadpdf ALTER COLUMN id SET DEFAULT nextval('public.report_uploadpdf_id_seq'::regclass);
+ALTER TABLE ONLY public.report_report ALTER COLUMN id SET DEFAULT nextval('public.report_report_id_seq'::regclass);
+
+
+--
+-- Name: report_sample id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.report_sample ALTER COLUMN id SET DEFAULT nextval('public.report_sample_id_seq'::regclass);
+
+
+--
+-- Name: tutorial_person id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutorial_person ALTER COLUMN id SET DEFAULT nextval('public.tutorial_person_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add pathogenicity	1	add_pathogenicity
+2	Can change pathogenicity	1	change_pathogenicity
+3	Can delete pathogenicity	1	delete_pathogenicity
+4	Can view pathogenicity	1	view_pathogenicity
+5	Can add sample	2	add_sample
+6	Can change sample	2	change_sample
+7	Can delete sample	2	delete_sample
+8	Can view sample	2	view_sample
+9	Can add report	3	add_report
+10	Can change report	3	change_report
+11	Can delete report	3	delete_report
+12	Can view report	3	view_report
+13	Can add log entry	4	add_logentry
+14	Can change log entry	4	change_logentry
+15	Can delete log entry	4	delete_logentry
+16	Can view log entry	4	view_logentry
+17	Can add permission	5	add_permission
+18	Can change permission	5	change_permission
+19	Can delete permission	5	delete_permission
+20	Can view permission	5	view_permission
+21	Can add group	6	add_group
+22	Can change group	6	change_group
+23	Can delete group	6	delete_group
+24	Can view group	6	view_group
+25	Can add user	7	add_user
+26	Can change user	7	change_user
+27	Can delete user	7	delete_user
+28	Can view user	7	view_user
+29	Can add content type	8	add_contenttype
+30	Can change content type	8	change_contenttype
+31	Can delete content type	8	delete_contenttype
+32	Can view content type	8	view_contenttype
+33	Can add session	9	add_session
+34	Can change session	9	change_session
+35	Can delete session	9	delete_session
+36	Can view session	9	view_session
+37	Can add person	10	add_person
+38	Can change person	10	change_person
+39	Can delete person	10	delete_person
+40	Can view person	10	view_person
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	report	pathogenicity
+2	report	sample
+3	report	report
+4	admin	logentry
+5	auth	permission
+6	auth	group
+7	auth	user
+8	contenttypes	contenttype
+9	sessions	session
+10	tutorial	person
+\.
 
 
 --
@@ -199,15 +717,41 @@ ALTER TABLE ONLY public.report_uploadpdf ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	report	0001_initial	2020-08-21 15:06:48.841318+08
+1	contenttypes	0001_initial	2020-08-31 12:06:11.806085+08
+2	auth	0001_initial	2020-08-31 12:06:11.960283+08
+3	admin	0001_initial	2020-08-31 12:06:12.161037+08
+4	admin	0002_logentry_remove_auto_add	2020-08-31 12:06:12.191282+08
+5	admin	0003_logentry_add_action_flag_choices	2020-08-31 12:06:12.207541+08
+6	contenttypes	0002_remove_content_type_name	2020-08-31 12:06:12.221418+08
+7	auth	0002_alter_permission_name_max_length	2020-08-31 12:06:12.227584+08
+8	auth	0003_alter_user_email_max_length	2020-08-31 12:06:12.235804+08
+9	auth	0004_alter_user_username_opts	2020-08-31 12:06:12.248843+08
+10	auth	0005_alter_user_last_login_null	2020-08-31 12:06:12.257878+08
+11	auth	0006_require_contenttypes_0002	2020-08-31 12:06:12.262521+08
+12	auth	0007_alter_validators_add_error_messages	2020-08-31 12:06:12.271002+08
+13	auth	0008_alter_user_username_max_length	2020-08-31 12:06:12.302866+08
+14	auth	0009_alter_user_last_name_max_length	2020-08-31 12:06:12.311444+08
+15	auth	0010_alter_group_name_max_length	2020-08-31 12:06:12.321854+08
+16	auth	0011_update_proxy_permissions	2020-08-31 12:06:12.348003+08
+17	report	0001_initial	2020-08-31 12:06:12.416483+08
+18	sessions	0001_initial	2020-08-31 12:06:12.493111+08
+19	tutorial	0001_initial	2020-09-01 11:07:06.850604+08
 \.
 
 
 --
--- Data for Name: report_clinicalinformation; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.report_clinicalinformation (clinical_id, disease, gene, variant, updated_at) FROM stdin;
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: report_pathogenicity; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.report_pathogenicity (id, disease, gene, variant, updated_at) FROM stdin;
 1	先天性无痛无汗症（CIPA）	NTRK1	NM_002529.3(NTRK1):c.[44G>A];[1945C>T]	2020-08-21 00:00:00+08
 2	成骨不全症（OI）	COL1A1	NM_000088.3(COL1A1):c.769G>A	2020-08-21 00:00:00+08
 3	Duchenne肌营养不良（DMD）	DMD	NM_004006.2(DMD):c.[EX46_47del];[0]	2020-08-21 00:00:00+08
@@ -992,10 +1536,594 @@ COPY public.report_clinicalinformation (clinical_id, disease, gene, variant, upd
 
 
 --
--- Data for Name: report_family; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: report_report; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.report_family (family_id, family, name, updated_at) FROM stdin;
+COPY public.report_report (id, pdf, uploaded_at, pathogenicity_id, sample_id) FROM stdin;
+1	20200004-苏芳-DMD.pdf	2020-08-21 00:00:00+08	711	755
+2	20200002-周红地-SMA.pdf	2020-08-21 00:00:00+08	703	747
+3	20200001-范敏清-SMA.pdf	2020-08-21 00:00:00+08	703	741
+4	11200083-蒋丽霞-F8.pdf	2020-08-21 00:00:00+08	732	776
+5	11200080-徐蓓-COL2A1.pdf	2020-08-21 00:00:00+08	730	774
+6	11200072-车雪娟-F8.pdf	2020-08-21 00:00:00+08	722	766
+7	11200068-范锦璐-TREX1.pdf	2020-08-21 00:00:00+08	719	763
+8	11200063-刘小飞-F9.pdf	2020-08-21 00:00:00+08	715	759
+9	11200059-冯小月-NF1.pdf	2020-08-21 00:00:00+08	710	754
+10	11200055-余江小-CPS1.pdf	2020-08-21 00:00:00+08	707	751
+11	11200054-张桂芹-BTK.pdf	2020-08-21 00:00:00+08	706	750
+12	11200051-朱佳颖-PKD1.pdf	2020-08-21 00:00:00+08	704	748
+13	11200047-任冉冉-SATB2.pdf	2020-08-21 00:00:00+08	701	745
+14	11200042-谢美兰-ETFDH.pdf	2020-08-21 00:00:00+08	697	740
+15	11200039-李晶-SCN1A.pdf	2020-08-21 00:00:00+08	695	738
+16	11200038-黄巧玲-α地贫.pdf	2020-08-21 00:00:00+08	358	737
+17	11200035-李晶-MTM1.pdf	2020-08-21 00:00:00+08	692	734
+18	11200027-张磊-ATM.pdf	2020-08-21 00:00:00+08	685	727
+19	11200021-李红华-PLP1.pdf	2020-08-21 00:00:00+08	679	721
+20	11200019-管文华-HBA.pdf	2020-08-21 00:00:00+08	677	719
+21	11200015-冯春梅-DMD.pdf	2020-08-21 00:00:00+08	673	715
+22	11200013-庄建华-PPARG.pdf	2020-08-21 00:00:00+08	671	713
+23	11200010-薛琴-NBAS.pdf	2020-08-21 00:00:00+08	668	710
+24	11200009-陈晨-TCOF1.pdf	2020-08-21 00:00:00+08	667	709
+25	11200005-庄建华-DSC2.pdf	2020-08-21 00:00:00+08	664	706
+26	11200002-贾雪菱-KRAS.pdf	2020-08-21 00:00:00+08	661	703
+27	11200001-余志杰-GJB2.pdf	2020-08-21 00:00:00+08	660	702
+28	11191012-董芳-F8.pdf	2020-08-21 00:00:00+08	613	685
+29	11191008-虞晓梅-F8.pdf	2020-08-21 00:00:00+08	261	599
+30	11191007-何芳艳-F8.pdf	2020-08-21 00:00:00+08	261	598
+31	11191005-张洋-F8.pdf	2020-08-21 00:00:00+08	261	558
+32	11191004-陈艳-F8.pdf	2020-08-21 00:00:00+08	261	557
+33	11191003-赵泽-F8.pdf	2020-08-21 00:00:00+08	261	556
+34	11191002-司玮-F8.pdf	2020-08-21 00:00:00+08	261	555
+35	11190236-毛芳-F8.pdf	2020-08-21 00:00:00+08	658	700
+36	11190233-戴逸韵-BRCA2.pdf	2020-08-21 00:00:00+08	659	701
+37	11190229-黄挺-ANKRD11.pdf	2020-08-21 00:00:00+08	653	695
+38	11190228-喻春梅-F9.pdf	2020-08-21 00:00:00+08	652	694
+39	11190225-秦和-PKD1.pdf	2020-08-21 00:00:00+08	647	689
+40	11190222-陆小红-RET.pdf	2020-08-21 00:00:00+08	646	688
+41	11190220-谢漫漫-MYH9.pdf	2020-08-21 00:00:00+08	641	683
+42	11190219-戴娟-TRAPPC12.pdf	2020-08-21 00:00:00+08	644	686
+43	11190216-阮阳娜-F8.pdf	2020-08-21 00:00:00+08	645	687
+44	11190215-傅宸睿-F9.pdf	2020-08-21 00:00:00+08	639	681
+45	11190213-吴溶溶-NPC1.pdf	2020-08-21 00:00:00+08	634	676
+46	11190210-张亚萍-BPTF.pdf	2020-08-21 00:00:00+08	633	675
+47	11190209-周婧倩-NF1.pdf	2020-08-21 00:00:00+08	635	677
+48	11190207-王秀英-IDS.pdf	2020-08-21 00:00:00+08	630	672
+49	11190204-张昱鑫-GJB2.pdf	2020-08-21 00:00:00+08	629	671
+50	11190201-徐葛玲-CYBB.pdf	2020-08-21 00:00:00+08	628	670
+51	11190198-韩晓梅-NPHS1.pdf	2020-08-21 00:00:00+08	621	663
+52	11190195-金勤-GUCY2C.pdf	2020-08-21 00:00:00+08	612	654
+53	11190193-王彩霞-F8.pdf	2020-08-21 00:00:00+08	616	658
+54	11190192-姜琦-ARX.pdf	2020-08-21 00:00:00+08	611	653
+55	11190189-常英健-NR0B1.pdf	2020-08-21 00:00:00+08	610	652
+56	11190186-陈玉芳-ALG1.pdf	2020-08-21 00:00:00+08	609	651
+57	11190184-周琰-SMARCA2.pdf	2020-08-21 00:00:00+08	606	648
+58	11190183-吴伊丽-COMP.pdf	2020-08-21 00:00:00+08	608	650
+59	11190180-陈相如-G6PD.pdf	2020-08-21 00:00:00+08	601	643
+60	11190177-陈相如-PKLR.pdf	2020-08-21 00:00:00+08	600	642
+61	11190174-刘培源-NF1.pdf	2020-08-21 00:00:00+08	313	641
+62	11190172-蔡玉莲-FGFR3.pdf	2020-08-21 00:00:00+08	60	635
+63	11190171-郭燕飞-CYP21A2.pdf	2020-08-21 00:00:00+08	598	640
+64	11190168-廖婧-SLC22A5.pdf	2020-08-21 00:00:00+08	590	631
+65	11190165-胡丽珊-COL1A1.pdf	2020-08-21 00:00:00+08	589	630
+66	11190162-刘明霞-F8.pdf	2020-08-21 00:00:00+08	585	626
+67	11190159-黄海军-GJB2.pdf	2020-08-21 00:00:00+08	138	625
+68	11190156-范龙梅-F9.pdf	2020-08-21 00:00:00+08	583	624
+69	11190153-王程-ATP7A.pdf	2020-08-21 00:00:00+08	582	623
+70	11190150-李婉玲-RIT1.pdf	2020-08-21 00:00:00+08	572	612
+71	11190149-徐文-F8.pdf	2020-08-21 00:00:00+08	576	616
+72	11190144-凌娟-F8.pdf	2020-08-21 00:00:00+08	570	610
+73	11190141-曹海霞-TGM1.pdf	2020-08-21 00:00:00+08	569	609
+74	11190140-韩晓辰-NKX2-5.pdf	2020-08-21 00:00:00+08	564	604
+75	11190138-顾婷-EXT2.pdf	2020-08-21 00:00:00+08	568	608
+76	11190135-朱恩-F8.pdf	2020-08-21 00:00:00+08	567	607
+77	11190133-路敏-GJB2.pdf	2020-08-21 00:00:00+08	138	596
+78	11190132-张二敏-F8.pdf	2020-08-21 00:00:00+08	329	595
+79	11190131-严志琴-MRE11A.pdf	2020-08-21 00:00:00+08	558	594
+80	11190129-杨莉娜-DMD.pdf	2020-08-21 00:00:00+08	556	592
+81	11190127-杨欣-KMT2A.pdf	2020-08-21 00:00:00+08	555	590
+82	11190126-于建莉-F8.pdf	2020-08-21 00:00:00+08	554	589
+83	11190125-颜李娜-F8.pdf	2020-08-21 00:00:00+08	553	588
+84	11190123-刘洋-COL4A5.pdf	2020-08-21 00:00:00+08	551	586
+85	11190122-宋柳-KMT2D.pdf	2020-08-21 00:00:00+08	550	585
+86	11190120-刘倩倩-IL2RG.pdf	2020-08-21 00:00:00+08	548	583
+87	11190119-李茜-TYR.pdf	2020-08-21 00:00:00+08	547	582
+88	11190118-潘越-地贫.pdf	2020-08-21 00:00:00+08	511	581
+89	11190117-章丹平-BBS10.pdf	2020-08-21 00:00:00+08	545	580
+90	11190116-汪俊-GREB1L.pdf	2020-08-21 00:00:00+08	544	579
+91	11190115-黄诗语-COL9A1.pdf	2020-08-21 00:00:00+08	543	578
+92	11190114-徐巧-SMC1A.pdf	2020-08-21 00:00:00+08	542	577
+93	11190111-徐巧-GRIN1.pdf	2020-08-21 00:00:00+08	539	574
+94	11190109-左剑伟-DYNC1H1.pdf	2020-08-21 00:00:00+08	537	572
+95	11190108-邱小红-COL4A5.pdf	2020-08-21 00:00:00+08	536	571
+96	11190107-姜晓颖-MMACHC.pdf	2020-08-21 00:00:00+08	535	570
+97	11190106-李琼-ALPL.pdf	2020-08-21 00:00:00+08	534	569
+98	11190105-雷萍萍-COL4A5.pdf	2020-08-21 00:00:00+08	533	568
+99	11190104-姜淼-WAS.pdf	2020-08-21 00:00:00+08	532	567
+100	11190103-张小慢-F9.pdf	2020-08-21 00:00:00+08	531	566
+101	11190101-许璟婧-OTC.pdf	2020-08-21 00:00:00+08	529	564
+102	11190100-王婷-SCN1A.pdf	2020-08-21 00:00:00+08	528	563
+103	11190099-张霞-VPS13B.pdf	2020-08-21 00:00:00+08	525	560
+104	11190098-贺曦-PKD1.pdf	2020-08-21 00:00:00+08	527	562
+105	11190097-欧阳文君-NF1.pdf	2020-08-21 00:00:00+08	526	561
+106	11190096-黄春园-NF1.pdf	2020-08-21 00:00:00+08	524	554
+107	11190095-陈丽婷-MUSK.pdf	2020-08-21 00:00:00+08	523	553
+108	11190094-刘倩-NF1.pdf	2020-08-21 00:00:00+08	522	552
+109	11190093-袁韵-TARS2.pdf	2020-08-21 00:00:00+08	521	551
+110	11190091-王翠-CTNS.pdf	2020-08-21 00:00:00+08	520	550
+111	11190090-王鑫-FLG.pdf	2020-08-21 00:00:00+08	519	549
+112	11190089-段晨晨-F9.pdf	2020-08-21 00:00:00+08	518	548
+113	11190088-贾文娟-F8.pdf	2020-08-21 00:00:00+08	517	547
+114	11190087-陈鎏-CDK16.pdf	2020-08-21 00:00:00+08	516	546
+115	11190086-朱丽丽-F8.pdf	2020-08-21 00:00:00+08	515	545
+116	11190085-许诗文-地贫.pdf	2020-08-21 00:00:00+08	511	544
+117	11190084-高婷婷-PIGA.pdf	2020-08-21 00:00:00+08	513	543
+118	11190083-庞凝-F8.pdf	2020-08-21 00:00:00+08	512	542
+119	11190082-潘越-地贫.pdf	2020-08-21 00:00:00+08	511	541
+120	11190081-丁芸琦-TRPM1.pdf	2020-08-21 00:00:00+08	510	540
+121	11190080-陈琦-TSC2.pdf	2020-08-21 00:00:00+08	509	539
+122	11190079-闵靖-TSC1.pdf	2020-08-21 00:00:00+08	508	538
+123	11190078-魏晨欢-CDK10.pdf	2020-08-21 00:00:00+08	507	537
+124	11190076-邓小珠-FBN1.pdf	2020-08-21 00:00:00+08	506	536
+125	11190075-刘崚昱-10q24.31q24.32.pdf	2020-08-21 00:00:00+08	505	535
+126	11190074-赵海霞-CYBB.pdf	2020-08-21 00:00:00+08	504	534
+127	11190073-黄亚萍-F8.pdf	2020-08-21 00:00:00+08	503	533
+128	11190072-张语阳-F8.pdf	2020-08-21 00:00:00+08	502	532
+129	11190071-王超-SARS2.pdf	2020-08-21 00:00:00+08	501	531
+130	11190070-侍子涵-TPP1.pdf	2020-08-21 00:00:00+08	500	530
+131	11190069-张蓉蓉-F8.pdf	2020-08-21 00:00:00+08	413	529
+132	11190068-王圆圆-PROM1.pdf	2020-08-21 00:00:00+08	499	528
+133	11190067-徐斌-FBN1.pdf	2020-08-21 00:00:00+08	498	527
+134	11190066-阮婷婷-AR.pdf	2020-08-21 00:00:00+08	497	526
+135	11190065-黄云-PKD1.pdf	2020-08-21 00:00:00+08	496	525
+136	11190064-郁晓芸-NF1.pdf	2020-08-21 00:00:00+08	495	524
+137	11190063-杨艳-PKD1.pdf	2020-08-21 00:00:00+08	494	523
+138	11190062-吕荟萍-CRX.pdf	2020-08-21 00:00:00+08	493	522
+139	11190061-朱晓静-C5orf42.pdf	2020-08-21 00:00:00+08	492	521
+140	11190060-丁改娟-PAX2.pdf	2020-08-21 00:00:00+08	491	520
+141	11190059-朱晓静-MSH2.pdf	2020-08-21 00:00:00+08	490	519
+142	11190058-孙立梅-CEP290.pdf	2020-08-21 00:00:00+08	489	518
+143	11190057-靳素娟-FGFR2.pdf	2020-08-21 00:00:00+08	488	517
+144	11190056-冯保会-COG5.pdf	2020-08-21 00:00:00+08	487	516
+145	11190054-陈凡-MPDZ.pdf	2020-08-21 00:00:00+08	485	514
+146	11190053-张刘慧-ITGA3.pdf	2020-08-21 00:00:00+08	484	513
+147	11190052-陈丹-ARSA.pdf	2020-08-21 00:00:00+08	483	512
+148	11190050-徐海静-MECP2.pdf	2020-08-21 00:00:00+08	482	510
+149	11190049-徐冲-F9.pdf	2020-08-21 00:00:00+08	481	509
+150	11190048-姚玲玲-F8.pdf	2020-08-21 00:00:00+08	480	508
+151	11190047-王利-ARSA.pdf	2020-08-21 00:00:00+08	479	507
+152	11190046-朱白桦-MME.pdf	2020-08-21 00:00:00+08	478	506
+153	11190045-张蓉蓉-DMD.pdf	2020-08-21 00:00:00+08	477	505
+154	11190044-王维维-FGFR3.pdf	2020-08-21 00:00:00+08	476	504
+155	11190043-王晓春-F8.pdf	2020-08-21 00:00:00+08	475	503
+156	11190041-郭玉琴-MTM1.pdf	2020-08-21 00:00:00+08	473	501
+157	11190039-程小燕-PLA2G6.pdf	2020-08-21 00:00:00+08	471	499
+158	11190036-李悦-CDKN1C.pdf	2020-08-21 00:00:00+08	468	496
+159	11190035-陈晶-PEX1.pdf	2020-08-21 00:00:00+08	467	495
+160	11190034-石文君-PCCB.pdf	2020-08-21 00:00:00+08	466	494
+161	11190033-董森琴-F8.pdf	2020-08-21 00:00:00+08	465	493
+162	11190032-刘劝劝-F8.pdf	2020-08-21 00:00:00+08	464	492
+163	11190031-徐婷-F8.pdf	2020-08-21 00:00:00+08	463	491
+164	11190030-赵艳平-PRDM16.pdf	2020-08-21 00:00:00+08	462	490
+165	11190029-王莺-F8.pdf	2020-08-21 00:00:00+08	461	489
+166	11190028-陈丹-RAD50.pdf	2020-08-21 00:00:00+08	460	488
+167	11190027-周清勤-ATM.pdf	2020-08-21 00:00:00+08	459	487
+168	11190026-谢芝妮-MUT.pdf	2020-08-21 00:00:00+08	458	486
+169	11190025-陈心怡-PKD1.pdf	2020-08-21 00:00:00+08	457	485
+170	11190024-张颖-CRB1.pdf	2020-08-21 00:00:00+08	456	484
+171	11190023-邵佩娜-COL11A1.pdf	2020-08-21 00:00:00+08	455	483
+172	11190022-邵佩娜-COL1A2.pdf	2020-08-21 00:00:00+08	454	482
+173	11190021-鲁爱莲-IL2RG.pdf	2020-08-21 00:00:00+08	453	481
+174	11181019-李梅霞-F8.pdf	2020-08-21 00:00:00+08	427	466
+175	11181019-李梅霞-F8.pdf	2020-08-21 00:00:00+08	452	466
+176	11181018-王判-F8.pdf	2020-08-21 00:00:00+08	427	464
+177	11181017-时瑶瑶-F8.pdf	2020-08-21 00:00:00+08	427	455
+178	11181015-杜晓璐-F8.pdf	2020-08-21 00:00:00+08	427	453
+179	11181014-李慧-F8.pdf	2020-08-21 00:00:00+08	427	452
+180	11181013-董秋丽-F8.pdf	2020-08-21 00:00:00+08	427	451
+181	11181011-谢佳霞-F8.pdf	2020-08-21 00:00:00+08	427	449
+182	11181010-张香萍-F8.pdf	2020-08-21 00:00:00+08	427	448
+183	11181009-王丽-F8.pdf	2020-08-21 00:00:00+08	427	447
+184	11181008-王淑贤-F8.pdf	2020-08-21 00:00:00+08	427	446
+185	11181007-王艺-F8.pdf	2020-08-21 00:00:00+08	427	445
+186	11181006-胡珍-F8.pdf	2020-08-21 00:00:00+08	427	444
+187	11181005-李媛媛-F8.pdf	2020-08-21 00:00:00+08	427	443
+188	11181004-郑毓秀-F8.pdf	2020-08-21 00:00:00+08	427	442
+189	11181003-史沫-F8.pdf	2020-08-21 00:00:00+08	427	441
+190	11181002-朱柳平-F8.pdf	2020-08-21 00:00:00+08	427	440
+191	11181001-张泽阳-F9.pdf	2020-08-21 00:00:00+08	426	439
+192	11180195-彭思-ATXN3.pdf	2020-08-21 00:00:00+08	451	479
+193	11180193-杨红磊-TYR.pdf	2020-08-21 00:00:00+08	449	477
+194	11180192-朱孟华-COL4A5.pdf	2020-08-21 00:00:00+08	448	476
+195	11180191-谭亚茹-EPHB4.pdf	2020-08-21 00:00:00+08	447	475
+196	11180190-柯文珺-COL1A1.pdf	2020-08-21 00:00:00+08	446	474
+197	11180189-赵芬-DMD.pdf	2020-08-21 00:00:00+08	445	473
+198	11180188-朱治芳-SMC1A.pdf	2020-08-21 00:00:00+08	444	472
+199	11180187-董莉莉-NOTCH1.pdf	2020-08-21 00:00:00+08	443	471
+200	11180186-高梦茹-GJB2.pdf	2020-08-21 00:00:00+08	306	470
+201	11180185-董莉莉-TNNI3.pdf	2020-08-21 00:00:00+08	441	469
+202	11180184-徐杰-MMACHC.pdf	2020-08-21 00:00:00+08	440	468
+203	11180183-唐怡-TMEM67.pdf	2020-08-21 00:00:00+08	439	467
+204	11180181-刘春霞-F8.pdf	2020-08-21 00:00:00+08	437	465
+205	11180180-孙立丽-SETD2.pdf	2020-08-21 00:00:00+08	435	463
+206	11180179-王敏-RAG1.pdf	2020-08-21 00:00:00+08	434	462
+207	11180178-欧阳宇-SUFU.pdf	2020-08-21 00:00:00+08	291	461
+208	11180176-何长美-RET.pdf	2020-08-21 00:00:00+08	432	460
+209	11180175-孟莹莹-NDP.pdf	2020-08-21 00:00:00+08	425	438
+210	11180174-徐晶-F8.pdf	2020-08-21 00:00:00+08	431	459
+211	11180171-孙勇-WFS1.pdf	2020-08-21 00:00:00+08	423	436
+212	11180170-黄大敏-NIPA1.pdf	2020-08-21 00:00:00+08	780	435
+213	11180170-黄大敏-NIPA1.pdf	2020-08-21 00:00:00+08	429	435
+214	11180168-管峻-ANK1.pdf	2020-08-21 00:00:00+08	421	433
+215	11180164-邢兰香-F8.pdf	2020-08-21 00:00:00+08	417	429
+216	11180163-陆琳琰-VWF.pdf	2020-08-21 00:00:00+08	416	428
+217	11180162-余素瑶-GBE1.pdf	2020-08-21 00:00:00+08	369	427
+218	11180161-陆琳琰-F8.pdf	2020-08-21 00:00:00+08	414	426
+219	11180160-郑洁-F8.pdf	2020-08-21 00:00:00+08	413	425
+220	11180159-王连连-PKHD1.pdf	2020-08-21 00:00:00+08	412	424
+221	11180158-刘曼-F7.pdf	2020-08-21 00:00:00+08	411	423
+222	11180157-沈骏婕-DMD.pdf	2020-08-21 00:00:00+08	410	422
+223	11180156-朱冬林-SCN1A.pdf	2020-08-21 00:00:00+08	409	421
+224	11180155-刘静-TOP3A.pdf	2020-08-21 00:00:00+08	408	420
+225	11180154-施丽君-GREB1L.pdf	2020-08-21 00:00:00+08	407	419
+226	11180153-韦秋惠-TAF2.pdf	2020-08-21 00:00:00+08	406	418
+227	11180152-戴雯-BRCA2.pdf	2020-08-21 00:00:00+08	405	417
+228	11180150-龚君芳-DMD.pdf	2020-08-21 00:00:00+08	403	415
+229	11180149-何宇浩-ATXN3.pdf	2020-08-21 00:00:00+08	402	414
+230	11180148-龚君芳-ANK1.pdf	2020-08-21 00:00:00+08	401	413
+231	11180144-余漫-TYR.pdf	2020-08-21 00:00:00+08	397	409
+232	11180143-赵雪-F8.pdf	2020-08-21 00:00:00+08	396	408
+233	11180142-黄巧玲-F8.pdf	2020-08-21 00:00:00+08	395	407
+234	11180141-祝嫣婷-F8.pdf	2020-08-21 00:00:00+08	394	406
+235	11180140-张良娟-MYH7.pdf	2020-08-21 00:00:00+08	393	405
+236	11180138-陈霞-PAH.pdf	2020-08-21 00:00:00+08	391	403
+237	11180136-米雪-F8.pdf	2020-08-21 00:00:00+08	389	401
+238	11180134-陆伟飞-FLG.pdf	2020-08-21 00:00:00+08	387	399
+239	11180132-徐丹-IGHMBP2.pdf	2020-08-21 00:00:00+08	385	397
+240	11180130-陈洁-GRIN2D.pdf	2020-08-21 00:00:00+08	383	395
+241	11180128-温丽娟-COL4A5.pdf	2020-08-21 00:00:00+08	381	393
+242	11180126-刘晶晶-F8.pdf	2020-08-21 00:00:00+08	379	391
+243	11180122-朱梦娇-CRYBB2.pdf	2020-08-21 00:00:00+08	375	387
+244	11180118-杨永祥-IL2RG.pdf	2020-08-21 00:00:00+08	371	383
+245	11180117-韩春华-PKD2.pdf	2020-08-21 00:00:00+08	370	382
+246	11180116-余素瑶-GBE1.pdf	2020-08-21 00:00:00+08	369	381
+247	11180112-朱元春-VHL.pdf	2020-08-21 00:00:00+08	366	377
+248	11180110-马丹华-PRODH.pdf	2020-08-21 00:00:00+08	364	375
+249	11180108-袁晓慧-EDA.pdf	2020-08-21 00:00:00+08	362	373
+250	11180106-张晶-CRYAA.pdf	2020-08-21 00:00:00+08	360	371
+251	11180104-陈桂香-地贫.pdf	2020-08-21 00:00:00+08	358	369
+252	11180103-陈凯-PKD1.pdf	2020-08-21 00:00:00+08	357	368
+253	11180102-张孜安-FGFR3.pdf	2020-08-21 00:00:00+08	356	367
+254	11180100-汤文娟-FBN1.pdf	2020-08-21 00:00:00+08	354	365
+255	11180098-崔芳-F8.pdf	2020-08-21 00:00:00+08	352	363
+256	11180092-成晶晖-F8.pdf	2020-08-21 00:00:00+08	347	358
+257	11180091-韩翠萍-F8.pdf	2020-08-21 00:00:00+08	346	357
+258	11180090-杨玉萍-PKHD1.pdf	2020-08-21 00:00:00+08	345	356
+259	11180089-唐悦-BRCA1.pdf	2020-08-21 00:00:00+08	343	355
+260	11180089-唐悦-BRCA1.pdf	2020-08-21 00:00:00+08	344	355
+261	11180088-黄彩虹-TSC2.pdf	2020-08-21 00:00:00+08	779	354
+262	11180087-胡志芳-ARR3.pdf	2020-08-21 00:00:00+08	342	353
+263	11180085-蔡霖-FBN1.pdf	2020-08-21 00:00:00+08	340	351
+264	11180084-杨梅-SRD5A2.pdf	2020-08-21 00:00:00+08	339	350
+265	11180083-孙婷-SRD5A2.pdf	2020-08-21 00:00:00+08	338	349
+266	11180081-陆鹏屹-F8.pdf	2020-08-21 00:00:00+08	336	347
+267	11180079-王文君-F8.pdf	2020-08-21 00:00:00+08	334	345
+268	11180078-江丽-PHF8.pdf	2020-08-21 00:00:00+08	333	344
+269	11180076-宋福贵-BICC1.pdf	2020-08-21 00:00:00+08	331	342
+270	11180075-沈圣云-KMT2D.pdf	2020-08-21 00:00:00+08	330	341
+271	11180074-张艳玲-F8.pdf	2020-08-21 00:00:00+08	329	340
+272	11180073-王怡菲-CHEK2.pdf	2020-08-21 00:00:00+08	328	339
+273	11180072-艾莎莎-F8.pdf	2020-08-21 00:00:00+08	327	338
+274	11180071-郜文玲-FOXF1.pdf	2020-08-21 00:00:00+08	326	337
+275	11180070-张晓娜-IL2RG.pdf	2020-08-21 00:00:00+08	325	336
+276	11180069-高嫄-MECP2.pdf	2020-08-21 00:00:00+08	324	335
+277	11180067-周丽玲-F9.pdf	2020-08-21 00:00:00+08	323	334
+278	11180066-张旭-ANK1.pdf	2020-08-21 00:00:00+08	322	333
+279	11180065-周丽丽-F8.pdf	2020-08-21 00:00:00+08	321	332
+280	11180064-张军令-KDM5C.pdf	2020-08-21 00:00:00+08	320	331
+281	11180063-张律-CALR.pdf	2020-08-21 00:00:00+08	319	330
+282	11180061-梁珍敏-FBN1.pdf	2020-08-21 00:00:00+08	778	328
+283	11180059-张小伟-CLCN7.pdf	2020-08-21 00:00:00+08	777	326
+284	11180058-侯元丽-NF1.pdf	2020-08-21 00:00:00+08	313	325
+285	11180057-张海宏-NF1.pdf	2020-08-21 00:00:00+08	313	324
+286	11180056-张婧屹-EPHB4.pdf	2020-08-21 00:00:00+08	311	323
+287	11180056-张婧屹-EPHB4.pdf	2020-08-21 00:00:00+08	312	323
+288	11180053-余臻-WDR73.pdf	2020-08-21 00:00:00+08	309	320
+289	11180052-田超-WDR19.pdf	2020-08-21 00:00:00+08	308	319
+290	11180051-范静-SLC5A7.pdf	2020-08-21 00:00:00+08	307	318
+291	11180050-王丽-GJB2.pdf	2020-08-21 00:00:00+08	306	317
+292	11180048-刘冰冰-PKD1.pdf	2020-08-21 00:00:00+08	304	315
+293	11180046-路晓叶-F8.pdf	2020-08-21 00:00:00+08	302	313
+294	11180045-胡玲-F8.pdf	2020-08-21 00:00:00+08	143	312
+295	11180044-马素珍-IL2RG.pdf	2020-08-21 00:00:00+08	301	311
+296	11180043-陈睿-RB1.pdf	2020-08-21 00:00:00+08	300	310
+297	11180042-王洁-FGFR3.pdf	2020-08-21 00:00:00+08	356	309
+298	11180041-袁媛-F8.pdf	2020-08-21 00:00:00+08	299	308
+299	11180040-崔云芳-F9.pdf	2020-08-21 00:00:00+08	298	307
+300	11180039-琚榕榕-SLC26A4.pdf	2020-08-21 00:00:00+08	297	306
+301	11180038-陈素娅-F8.pdf	2020-08-21 00:00:00+08	296	305
+302	11180037-吾露萍-GJB2.pdf	2020-08-21 00:00:00+08	295	304
+303	11180036-沈丹-STS.pdf	2020-08-21 00:00:00+08	293	303
+304	11180036-沈丹-STS.pdf	2020-08-21 00:00:00+08	294	303
+305	11180035-彭丹丹-F8.pdf	2020-08-21 00:00:00+08	292	302
+306	11180034-欧阳宇-SUFU.pdf	2020-08-21 00:00:00+08	291	301
+307	11180033-王焘-COL7A1.pdf	2020-08-21 00:00:00+08	290	300
+308	11180032-邓慧-PKD1.pdf	2020-08-21 00:00:00+08	289	299
+309	11180031-冯桃桃-AMPD2.pdf	2020-08-21 00:00:00+08	288	298
+310	11180030-王婕-COL1A1.pdf	2020-08-21 00:00:00+08	287	297
+311	11180029-刘梅-GALNS.pdf	2020-08-21 00:00:00+08	286	296
+312	11180028-董丽华-TTR.pdf	2020-08-21 00:00:00+08	285	295
+313	11180024-许连凤-COL6A1.pdf	2020-08-21 00:00:00+08	281	291
+314	11180023-张曼曼-COL1A1.pdf	2020-08-21 00:00:00+08	280	290
+315	11180022-姚梦雪-F8.pdf	2020-08-21 00:00:00+08	279	289
+316	11180021-叶俊琪-COL4A5.pdf	2020-08-21 00:00:00+08	278	288
+317	11180020-张宏霞-EDA.pdf	2020-08-21 00:00:00+08	277	287
+318	11180018-施妹妹-F8.pdf	2020-08-21 00:00:00+08	275	285
+319	11180017-汪苏云-F8.pdf	2020-08-21 00:00:00+08	274	284
+320	11180016-朱从霄-FLG.pdf	2020-08-21 00:00:00+08	273	283
+321	11180015-高发修-MUT.pdf	2020-08-21 00:00:00+08	272	282
+322	11180012-王圣芳-BCKDHB.pdf	2020-08-21 00:00:00+08	269	279
+323	11180011-汪廷惠-NF2.pdf	2020-08-21 00:00:00+08	268	278
+324	11180010-黄巧芳-ANK1.pdf	2020-08-21 00:00:00+08	267	277
+325	11180009-李丰芝-F8.pdf	2020-08-21 00:00:00+08	266	276
+326	11180008-王晓春-PKHD1.pdf	2020-08-21 00:00:00+08	265	275
+327	11180007-芮华政-MAGEL2.pdf	2020-08-21 00:00:00+08	264	274
+328	11180006-王元琼-ABCD1.pdf	2020-08-21 00:00:00+08	263	273
+329	11180005-吴国珍-NPHS1.pdf	2020-08-21 00:00:00+08	262	272
+330	11180004-冯海娟-COL6A2.pdf	2020-08-21 00:00:00+08	213	271
+331	11180003-廖玲娟-F8.pdf	2020-08-21 00:00:00+08	261	270
+332	11180002-张璐-TRPS1.pdf	2020-08-21 00:00:00+08	260	269
+333	11180001-吴岐珍-GAA.pdf	2020-08-21 00:00:00+08	259	268
+334	11170108-周赟-CEP290.pdf	2020-08-21 00:00:00+08	257	267
+335	11170108-周赟-CEP290.pdf	2020-08-21 00:00:00+08	258	267
+336	11170107-戚卉雯-FBN1.pdf	2020-08-21 00:00:00+08	256	266
+337	11170106-周佳美-AGXT.pdf	2020-08-21 00:00:00+08	255	265
+338	11170104-康俊鸿-CYP21A2.pdf	2020-08-21 00:00:00+08	253	263
+339	11170103-宋佳青-RPGR.pdf	2020-08-21 00:00:00+08	252	262
+340	11170102-张庆泉-COL4A5.pdf	2020-08-21 00:00:00+08	251	261
+341	11170101-刘江丽-RB1.pdf	2020-08-21 00:00:00+08	250	260
+342	11170099-范娟娟-OCA2.pdf	2020-08-21 00:00:00+08	248	258
+343	11170098-杜茜-F8.pdf	2020-08-21 00:00:00+08	247	257
+344	11170097- 陈琳-OCA2.pdf	2020-08-21 00:00:00+08	246	256
+345	11170096-包雪芳-CAPN3.pdf	2020-08-21 00:00:00+08	245	255
+346	11170095-张朵朵-SLC25A13.pdf	2020-08-21 00:00:00+08	244	254
+347	11170094-刘煜-COL1A1.pdf	2020-08-21 00:00:00+08	243	253
+348	11170093-王森-PAH.pdf	2020-08-21 00:00:00+08	242	252
+349	11170091-马月-ALPL.pdf	2020-08-21 00:00:00+08	240	250
+350	11170090-戴铭辰-PIGA.pdf	2020-08-21 00:00:00+08	239	249
+351	11170089-赵雪霞-PANK2.pdf	2020-08-21 00:00:00+08	238	248
+352	11170088-叶巧萍-F8.pdf	2020-08-21 00:00:00+08	237	247
+353	11170085-张静静-CYP21A2.pdf	2020-08-21 00:00:00+08	234	244
+354	11170084-曹杰-STS.pdf	2020-08-21 00:00:00+08	233	243
+355	11170083-王琳琳-ABCC8.pdf	2020-08-21 00:00:00+08	232	242
+356	11170082-卢凤英-SRD5A2.pdf	2020-08-21 00:00:00+08	231	241
+357	11170081-陈会君-PMP22.pdf	2020-08-21 00:00:00+08	230	240
+358	11170080-包乐燕-SLC26A4.pdf	2020-08-21 00:00:00+08	229	239
+359	11170079-周海花-TSPAN12.pdf	2020-08-21 00:00:00+08	228	238
+360	11170078-俞霞-MKS1.pdf	2020-08-21 00:00:00+08	227	237
+361	11170076-徐晓燕-TSPAN12.pdf	2020-08-21 00:00:00+08	226	235
+362	11170075-许宗宇-OCA2.pdf	2020-08-21 00:00:00+08	225	234
+363	11170074-唐金枝-ATRX.pdf	2020-08-21 00:00:00+08	224	233
+364	11170073-朱瑞-LAMB2.pdf	2020-08-21 00:00:00+08	223	232
+365	11170071-曹令娴-FGFR3.pdf	2020-08-21 00:00:00+08	357	230
+366	11170070-沈蓓蕾-PLP1.pdf	2020-08-21 00:00:00+08	220	229
+367	11170069-何文-PKD1.pdf	2020-08-21 00:00:00+08	219	228
+368	11170067-王新悦-TSC2.pdf	2020-08-21 00:00:00+08	218	226
+369	11170066-王秀真-RAG1.pdf	2020-08-21 00:00:00+08	217	225
+370	11170065-陈俊楠-EXT1.pdf	2020-08-21 00:00:00+08	216	224
+371	11170064-朱丹丹-BTK.pdf	2020-08-21 00:00:00+08	215	223
+372	11170063-邹蕾蕾-PKD1.pdf	2020-08-21 00:00:00+08	214	222
+373	11170062-曾艳-COL6A2.pdf	2020-08-21 00:00:00+08	213	221
+374	11170061-吴晓兰-EDA.pdf	2020-08-21 00:00:00+08	212	220
+375	11170060-周旖旎-DMD.pdf	2020-08-21 00:00:00+08	211	219
+376	11170059-吕剑云-NF1.pdf	2020-08-21 00:00:00+08	210	218
+377	11170058-余德丽-ATRX.pdf	2020-08-21 00:00:00+08	209	217
+378	11170057-黄琬淇-NF1.pdf	2020-08-21 00:00:00+08	208	216
+379	11170056-唐鑫鑫-ACADVL.pdf	2020-08-21 00:00:00+08	207	215
+380	11170055-董萌萌-MUT.pdf	2020-08-21 00:00:00+08	206	214
+381	11170054-伊永胜-LDLR.pdf	2020-08-21 00:00:00+08	205	213
+382	11170053-范雪芹-RET.pdf	2020-08-21 00:00:00+08	204	212
+383	11170052-周频之小子-MBTPS2.pdf	2020-08-21 00:00:00+08	203	211
+384	11170051-张梦婷-PKD1.pdf	2020-08-21 00:00:00+08	202	210
+385	11170050-何颖颖-CYP21A2.pdf	2020-08-21 00:00:00+08	201	209
+386	11170049-陈燕-TYR.pdf	2020-08-21 00:00:00+08	200	208
+387	11170047-周秀连-COL4A5.pdf	2020-08-21 00:00:00+08	198	206
+388	11170046-俞飞-NPHS1.pdf	2020-08-21 00:00:00+08	197	205
+389	11170045-徐清华-ARSA.pdf	2020-08-21 00:00:00+08	196	204
+390	11170044-李伟波-IL10RA.pdf	2020-08-21 00:00:00+08	195	203
+391	11170043-程红-NF1.pdf	2020-08-21 00:00:00+08	194	202
+392	11170042-冯辉-FGFR3.pdf	2020-08-21 00:00:00+08	356	201
+393	11170041-吴仙兵-UBE3A.pdf	2020-08-21 00:00:00+08	193	200
+394	11170040-戎英静-ABCD1.pdf	2020-08-21 00:00:00+08	192	199
+395	11170039-梁宇青-DYNC2H1.pdf	2020-08-21 00:00:00+08	191	198
+396	11170038-黄彩凤-COL1A1.pdf	2020-08-21 00:00:00+08	190	197
+397	11170037-吴三妹-OCA2.pdf	2020-08-21 00:00:00+08	189	196
+398	11170036-覃碧芳-HBA.pdf	2020-08-21 00:00:00+08	119	195
+399	11170035-宋冬妹-IL2RG.pdf	2020-08-21 00:00:00+08	188	194
+400	11170034-王珊珊-NEB.pdf	2020-08-21 00:00:00+08	187	193
+401	11170033-张爱华-IL7R.pdf	2020-08-21 00:00:00+08	186	192
+402	11170032-陆士成-PKD1.pdf	2020-08-21 00:00:00+08	185	191
+403	11170030-叶柳菁-RPGR.pdf	2020-08-21 00:00:00+08	183	189
+404	11170029-裴萍萍-STS.pdf	2020-08-21 00:00:00+08	182	188
+405	11170028-王俊霞-SCN1A.pdf	2020-08-21 00:00:00+08	181	187
+406	11170027-戴花-STS.pdf	2020-08-21 00:00:00+08	180	186
+407	11170026-樊华-COL2A1.pdf	2020-08-21 00:00:00+08	179	185
+408	11170025-胡李文-ATP7B.pdf	2020-08-21 00:00:00+08	178	184
+409	11170024-谈云-DMD.pdf	2020-08-21 00:00:00+08	177	183
+410	11170023-吕玲玲-TYR.pdf	2020-08-21 00:00:00+08	176	182
+411	11170022-陈采红-CNGA1.pdf	2020-08-21 00:00:00+08	175	181
+412	11170021-陈瑶-NF1.pdf	2020-08-21 00:00:00+08	174	180
+413	11170020-陈佳妮-ABCA4.pdf	2020-08-21 00:00:00+08	173	179
+414	11170019-周子怡-G6PC.pdf	2020-08-21 00:00:00+08	172	178
+415	11170018-徐原-OTC.pdf	2020-08-21 00:00:00+08	171	177
+416	11170017-廖永光-MIP.pdf	2020-08-21 00:00:00+08	170	176
+417	11170016-陈欣玫-PKHD1.pdf	2020-08-21 00:00:00+08	169	175
+418	11170015-俞璐萍-CYP17A1.pdf	2020-08-21 00:00:00+08	168	174
+419	11170014-孙瑞晨-LIG4.pdf	2020-08-21 00:00:00+08	167	173
+420	11170013-申俊杰-COL4A5.pdf	2020-08-21 00:00:00+08	166	172
+421	11170012-王园卿-TYR.pdf	2020-08-21 00:00:00+08	165	171
+422	11170011-李娜-NHS.pdf	2020-08-21 00:00:00+08	164	170
+423	11170010-潘皓轩-SCN1A.pdf	2020-08-21 00:00:00+08	163	169
+424	11170009-仇毓-UNC80.pdf	2020-08-21 00:00:00+08	162	168
+425	11170007-胡振晔-CRYGC.pdf	2020-08-21 00:00:00+08	775	166
+426	11170006-倪建军-TYR.pdf	2020-08-21 00:00:00+08	159	165
+427	11170005-翁玉群-GUCY2D.pdf	2020-08-21 00:00:00+08	158	164
+428	11170003-赵海-IRF6.pdf	2020-08-21 00:00:00+08	156	162
+429	11170002-沈李倩-FMR1.pdf	2020-08-21 00:00:00+08	155	161
+430	11170001-余勐-F8.pdf	2020-08-21 00:00:00+08	154	160
+431	11160085-周莉萍-ACADVL.pdf	2020-08-21 00:00:00+08	153	159
+432	11160084-张健-DYSF.pdf	2020-08-21 00:00:00+08	152	158
+433	11160083-张雅琳-EXT2.pdf	2020-08-21 00:00:00+08	151	157
+434	11160082-俞仙亚-COL7A1.pdf	2020-08-21 00:00:00+08	150	156
+435	11160081-袁喆静-NF1.pdf	2020-08-21 00:00:00+08	149	155
+436	11160080-张灿微-OPA1.pdf	2020-08-21 00:00:00+08	148	154
+437	11160079-韩中雪-ASL.pdf	2020-08-21 00:00:00+08	147	153
+438	11160078-张汉林-BSCL2.pdf	2020-08-21 00:00:00+08	146	152
+439	11160077-黄贵花-ATRX.pdf	2020-08-21 00:00:00+08	145	151
+440	11160076-杨爱华-SRD5A2.pdf	2020-08-21 00:00:00+08	144	150
+441	11160075-郑航芝-STS.pdf	2020-08-21 00:00:00+08	24	149
+442	11160074-曾春云-F8.pdf	2020-08-21 00:00:00+08	143	148
+443	11160073-王梓旭-UBE3A.pdf	2020-08-21 00:00:00+08	142	147
+444	11160072-陈艳-MT-TL1.pdf	2020-08-21 00:00:00+08	141	146
+445	11160071-耿英慈-TYR.pdf	2020-08-21 00:00:00+08	140	145
+446	11160070-汪红英-DMD.pdf	2020-08-21 00:00:00+08	139	144
+447	11160069-曲明阳-GJB2.pdf	2020-08-21 00:00:00+08	138	143
+448	11160068-黄春艳-PKD1.pdf	2020-08-21 00:00:00+08	137	142
+449	11160066-王玲群-RAG2.pdf	2020-08-21 00:00:00+08	135	140
+450	11160064-王萍-FANCA.pdf	2020-08-21 00:00:00+08	133	138
+451	11160062-戴懿-TSC1.pdf	2020-08-21 00:00:00+08	131	136
+452	11160061-诸寅-NF1.pdf	2020-08-21 00:00:00+08	130	135
+453	11160060-唐箫-TCIRG1.pdf	2020-08-21 00:00:00+08	129	134
+454	11160059-钱洁-EXT1.pdf	2020-08-21 00:00:00+08	128	133
+455	11160058-周婧雯-BRAF.pdf	2020-08-21 00:00:00+08	127	132
+456	11160057-裴硕-BRCA1.pdf	2020-08-21 00:00:00+08	126	131
+457	11160056-张叶-TP53.pdf	2020-08-21 00:00:00+08	125	130
+458	11160054-朱文俊-IL7R.pdf	2020-08-21 00:00:00+08	123	128
+459	11160053-向晓艳-FGFR3.pdf	2020-08-21 00:00:00+08	356	127
+460	11160052-施春女-ADGRG1.pdf	2020-08-21 00:00:00+08	122	126
+461	11160051-魏晓琴-OTC.pdf	2020-08-21 00:00:00+08	121	125
+462	11160050-程兵兵-WAS.pdf	2020-08-21 00:00:00+08	120	124
+463	11160049-程雪花-HBA-HBB.pdf	2020-08-21 00:00:00+08	119	123
+464	11160048-高文-FLNB.pdf	2020-08-21 00:00:00+08	118	122
+465	11160047-吴桂萍-CLCN5.pdf	2020-08-21 00:00:00+08	117	121
+466	11160046-刘则馥-PKLR.pdf	2020-08-21 00:00:00+08	116	120
+467	11160045-余音-FOXP3.pdf	2020-08-21 00:00:00+08	115	119
+468	11160044-姜晰-EVC2.pdf	2020-08-21 00:00:00+08	114	118
+469	11160043-包秋珍-FMR1.pdf	2020-08-21 00:00:00+08	113	117
+470	11160042-陶源-CDH1.pdf	2020-08-21 00:00:00+08	112	116
+471	11160041-郭淑杰-F9.pdf	2020-08-21 00:00:00+08	111	115
+472	11160040-宗乐-MAGEL2.pdf	2020-08-21 00:00:00+08	110	114
+473	11160039-杨春霞-COL1A1.pdf	2020-08-21 00:00:00+08	2	113
+474	11160038-马月玲-FBN1.pdf	2020-08-21 00:00:00+08	109	112
+475	11160037-袁慧娟-SHOX.pdf	2020-08-21 00:00:00+08	108	111
+476	11160036-陈思斯-NF1.pdf	2020-08-21 00:00:00+08	107	110
+477	11160034-李培凯-COL4A5.pdf	2020-08-21 00:00:00+08	105	108
+478	11160033-李丽娜-PLA2G6.pdf	2020-08-21 00:00:00+08	104	107
+479	11160032-朱晓艳-GNPTAB.pdf	2020-08-21 00:00:00+08	103	106
+480	11160031-杨思怡-G6PD.pdf	2020-08-21 00:00:00+08	102	105
+481	11160029-王妤扬-FGFR3.pdf	2020-08-21 00:00:00+08	60	103
+482	11160028-刘峰-DMD.pdf	2020-08-21 00:00:00+08	100	102
+483	11160027-郑达权-GUCY2D.pdf	2020-08-21 00:00:00+08	99	101
+484	11160026-王艺睿-LMNA.pdf	2020-08-21 00:00:00+08	98	100
+485	11160025-叶晨焕-MSH2.pdf	2020-08-21 00:00:00+08	97	99
+486	11160024-陈洋多-TYR.pdf	2020-08-21 00:00:00+08	96	98
+487	11160023-胡晓敏-KDM6A.pdf	2020-08-21 00:00:00+08	95	97
+488	11160022-李遵容-TSC2.pdf	2020-08-21 00:00:00+08	94	96
+489	11160021-周笑飞-NF1.pdf	2020-08-21 00:00:00+08	93	95
+490	11160020-许湘洪-RMND1.pdf	2020-08-21 00:00:00+08	92	94
+491	11160019-裘李英-SERPINB7.pdf	2020-08-21 00:00:00+08	91	93
+492	11160018-李建娟-ITGB4.pdf	2020-08-21 00:00:00+08	90	92
+493	11160017-汪桂芳-DIAPH2.pdf	2020-08-21 00:00:00+08	89	91
+494	11160016-李招弟-CD40LG.pdf	2020-08-21 00:00:00+08	88	90
+495	11160015-万海云-IDUA.pdf	2020-08-21 00:00:00+08	87	89
+496	11160014-李美红-HBA1.pdf	2020-08-21 00:00:00+08	86	88
+497	11160013-侯丽侠-GJB2.pdf	2020-08-21 00:00:00+08	85	87
+498	11160012-王慧强-RAG2.pdf	2020-08-21 00:00:00+08	84	86
+499	11160011-梁峰-PKD1.pdf	2020-08-21 00:00:00+08	20	85
+500	11160010-顾晓琦-ELN.pdf	2020-08-21 00:00:00+08	83	84
+501	11160009-胡曼-NF1.pdf	2020-08-21 00:00:00+08	82	83
+502	11160006-简嘉-FLG.pdf	2020-08-21 00:00:00+08	80	81
+503	11160005-李公祥-FLG.pdf	2020-08-21 00:00:00+08	79	80
+504	11160004-楚艳丽-SGSH.pdf	2020-08-21 00:00:00+08	78	79
+505	11160003-李春霞-BTK.pdf	2020-08-21 00:00:00+08	77	78
+506	11160002-裴玲-TYR.pdf	2020-08-21 00:00:00+08	76	77
+507	11160001-沈维佳-TSC2.pdf	2020-08-21 00:00:00+08	75	76
+508	11150069-黄芳-NPHP3.pdf	2020-08-21 00:00:00+08	74	75
+509	11150068-周蓉-FBN1.pdf	2020-08-21 00:00:00+08	73	74
+510	11150067-夏岚-ADA.pdf	2020-08-21 00:00:00+08	72	73
+511	11150066-陈兴峰-DMD.pdf	2020-08-21 00:00:00+08	71	72
+512	11150064-施霞敏-SLC17A8.pdf	2020-08-21 00:00:00+08	69	70
+513	11150063-叶红-IL2RG.pdf	2020-08-21 00:00:00+08	68	69
+514	11150062-叶优艳-BRCA2.pdf	2020-08-21 00:00:00+08	67	68
+515	11150061-金韶华-DMD.pdf	2020-08-21 00:00:00+08	66	67
+516	11150060-朱殿云-SMN1.pdf	2020-08-21 00:00:00+08	65	66
+517	11150059-钱枫-GJB2.pdf	2020-08-21 00:00:00+08	64	65
+518	11150058-孙银华-PKD1.pdf	2020-08-21 00:00:00+08	63	64
+519	11150057-金花-DMD.pdf	2020-08-21 00:00:00+08	62	63
+520	11150056-冯惠英-CLO4A4.pdf	2020-08-21 00:00:00+08	61	62
+521	11150055-刘平-FGFR3.pdf	2020-08-21 00:00:00+08	60	61
+522	11150054-徐建余-PAX6.pdf	2020-08-21 00:00:00+08	59	60
+523	11150053-尹鹏-PKD1.pdf	2020-08-21 00:00:00+08	58	59
+524	11150051-李慢-SH2D1A.pdf	2020-08-21 00:00:00+08	56	57
+525	11150050-沈晓杰-G6PC.pdf	2020-08-21 00:00:00+08	55	56
+526	11150049-姚盈-LDLR.pdf	2020-08-21 00:00:00+08	54	55
+527	11150048-汪琴-DYSF.pdf	2020-08-21 00:00:00+08	53	54
+528	11150047-齐巧艳-GFAP.pdf	2020-08-21 00:00:00+08	52	53
+529	11150046-虞磊-BTK.pdf	2020-08-21 00:00:00+08	51	52
+530	11150045-朱念念-FGFR3.pdf	2020-08-21 00:00:00+08	50	51
+531	11150044-平霞霞-RAG1.pdf	2020-08-21 00:00:00+08	49	50
+532	11150043-庞霞-PKHD1.pdf	2020-08-21 00:00:00+08	48	49
+533	11150042-沈萍-JAG1.pdf	2020-08-21 00:00:00+08	47	48
+534	11150041-徐枫琳-CEP290.pdf	2020-08-21 00:00:00+08	46	47
+535	11150040-齐芳灵-COL4A5.pdf	2020-08-21 00:00:00+08	45	46
+536	11150039-刘琴-GCDH.pdf	2020-08-21 00:00:00+08	44	45
+537	11150038-何建兵-FBN1.pdf	2020-08-21 00:00:00+08	43	44
+538	11150037-黄伟华-COL4A5.pdf	2020-08-21 00:00:00+08	42	43
+539	11150036-吴丹-HBA1.pdf	2020-08-21 00:00:00+08	41	42
+540	11150035-陆锋-PMP22.pdf	2020-08-21 00:00:00+08	40	41
+541	11150034-虞菲敏-DMD.pdf	2020-08-21 00:00:00+08	39	40
+542	11150033-韩寅卿-TGFBR1.pdf	2020-08-21 00:00:00+08	38	39
+543	11150032-陈逸雯-SMC1A.pdf	2020-08-21 00:00:00+08	37	38
+544	11150030-涂燕华-ABCD1.pdf	2020-08-21 00:00:00+08	36	37
+545	11150029-陈莉-SMN1.pdf	2020-08-21 00:00:00+08	35	36
+546	11150028-何晓晔-TSC1.pdf	2020-08-21 00:00:00+08	34	35
+547	11150027-李丽萍-FGFR3.pdf	2020-08-21 00:00:00+08	356	34
+548	11150026-顾晓庆-TYR.pdf	2020-08-21 00:00:00+08	33	33
+549	11150024-林绍擎-PKD1.pdf	2020-08-21 00:00:00+08	31	31
+550	11150023-林碧芬-ATP7B.pdf	2020-08-21 00:00:00+08	30	30
+551	11150022-李琳-PKHD1.pdf	2020-08-21 00:00:00+08	29	29
+552	11150021-王益儿-PBCKDHA.pdf	2020-08-21 00:00:00+08	28	28
+553	11150020-张婷-SMN1.pdf	2020-08-21 00:00:00+08	11	27
+554	11150019-刘静-IL2RG.pdf	2020-08-21 00:00:00+08	26	26
+555	11150018-蒋海芹-NTRK1.pdf	2020-08-21 00:00:00+08	25	25
+556	11150017-沈浩-STS.pdf	2020-08-21 00:00:00+08	24	24
+557	11150016-杨洁-WAS.pdf	2020-08-21 00:00:00+08	23	23
+558	11150015-张余-COMP.pdf	2020-08-21 00:00:00+08	22	22
+559	11150014-王志浩-GJB2.pdf	2020-08-21 00:00:00+08	21	21
+560	11150013-王珏-PKD1.pdf	2020-08-21 00:00:00+08	20	20
+561	11150012-姜春霞-GRIN2B.pdf	2020-08-21 00:00:00+08	19	19
+562	11150011-谢芳君-ATP7B.pdf	2020-08-21 00:00:00+08	18	18
+563	11150010-叶璟-PKD1.pdf	2020-08-21 00:00:00+08	17	17
+564	11150008-郑向红-IL2RG.pdf	2020-08-21 00:00:00+08	15	15
+565	11150006-赵燕婷-EXT1.pdf	2020-08-21 00:00:00+08	13	13
+566	11150005-夏红燕-DMD.pdf	2020-08-21 00:00:00+08	12	12
+567	11150004-徐绿叶-SMN1.pdf	2020-08-21 00:00:00+08	11	11
+568	11150002-孙洁-ADA.pdf	2020-08-21 00:00:00+08	9	9
+569	11150001-侯晓匀-PKHD1.pdf	2020-08-21 00:00:00+08	8	8
+570	11140007-张梓健-IDS.pdf	2020-08-21 00:00:00+08	7	7
+571	11140006-吴永胜-WAS.pdf	2020-08-21 00:00:00+08	6	6
+572	11140005-叶劲松-PKD1.pdf	2020-08-21 00:00:00+08	5	5
+573	11140004-华峻-FLG.pdf	2020-08-21 00:00:00+08	4	4
+574	11140003-张文栋-DMD.pdf	2020-08-21 00:00:00+08	3	3
+575	11140002-叶连敏-COL1A1.pdf	2020-08-21 00:00:00+08	2	2
+576	11140001-姜璐琰-NTRK1.pdf	2020-08-21 00:00:00+08	1	1
+\.
+
+
+--
+-- Data for Name: report_sample; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.report_sample (id, family, name, updated_at) FROM stdin;
 1	11140001	姜璐琰	2020-08-21 00:00:00+08
 2	11140002	叶连敏	2020-08-21 00:00:00+08
 3	11140003	张文栋	2020-08-21 00:00:00+08
@@ -1816,615 +2944,320 @@ COPY public.report_family (family_id, family, name, updated_at) FROM stdin;
 
 
 --
--- Data for Name: report_uploadpdf; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: tutorial_person; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.report_uploadpdf (id, pdf, uploaded_at, clinical_information_id, family_id) FROM stdin;
-1	20200004-苏芳-DMD.pdf	2020-08-21 00:00:00+08	711	755
-2	20200002-周红地-SMA.pdf	2020-08-21 00:00:00+08	703	747
-3	20200001-范敏清-SMA.pdf	2020-08-21 00:00:00+08	703	741
-4	11200083-蒋丽霞-F8.pdf	2020-08-21 00:00:00+08	732	776
-5	11200080-徐蓓-COL2A1.pdf	2020-08-21 00:00:00+08	730	774
-6	11200072-车雪娟-F8.pdf	2020-08-21 00:00:00+08	722	766
-7	11200068-范锦璐-TREX1.pdf	2020-08-21 00:00:00+08	719	763
-8	11200063-刘小飞-F9.pdf	2020-08-21 00:00:00+08	715	759
-9	11200059-冯小月-NF1.pdf	2020-08-21 00:00:00+08	710	754
-10	11200055-余江小-CPS1.pdf	2020-08-21 00:00:00+08	707	751
-11	11200054-张桂芹-BTK.pdf	2020-08-21 00:00:00+08	706	750
-12	11200051-朱佳颖-PKD1.pdf	2020-08-21 00:00:00+08	704	748
-13	11200047-任冉冉-SATB2.pdf	2020-08-21 00:00:00+08	701	745
-14	11200042-谢美兰-ETFDH.pdf	2020-08-21 00:00:00+08	697	740
-15	11200039-李晶-SCN1A.pdf	2020-08-21 00:00:00+08	695	738
-16	11200038-黄巧玲-α地贫.pdf	2020-08-21 00:00:00+08	358	737
-17	11200035-李晶-MTM1.pdf	2020-08-21 00:00:00+08	692	734
-18	11200027-张磊-ATM.pdf	2020-08-21 00:00:00+08	685	727
-19	11200021-李红华-PLP1.pdf	2020-08-21 00:00:00+08	679	721
-20	11200019-管文华-HBA.pdf	2020-08-21 00:00:00+08	677	719
-21	11200015-冯春梅-DMD.pdf	2020-08-21 00:00:00+08	673	715
-22	11200013-庄建华-PPARG.pdf	2020-08-21 00:00:00+08	671	713
-23	11200010-薛琴-NBAS.pdf	2020-08-21 00:00:00+08	668	710
-24	11200009-陈晨-TCOF1.pdf	2020-08-21 00:00:00+08	667	709
-25	11200005-庄建华-DSC2.pdf	2020-08-21 00:00:00+08	664	706
-26	11200002-贾雪菱-KRAS.pdf	2020-08-21 00:00:00+08	661	703
-27	11200001-余志杰-GJB2.pdf	2020-08-21 00:00:00+08	660	702
-28	11191012-董芳-F8.pdf	2020-08-21 00:00:00+08	613	685
-29	11191008-虞晓梅-F8.pdf	2020-08-21 00:00:00+08	261	599
-30	11191007-何芳艳-F8.pdf	2020-08-21 00:00:00+08	261	598
-31	11191005-张洋-F8.pdf	2020-08-21 00:00:00+08	261	558
-32	11191004-陈艳-F8.pdf	2020-08-21 00:00:00+08	261	557
-33	11191003-赵泽-F8.pdf	2020-08-21 00:00:00+08	261	556
-34	11191002-司玮-F8.pdf	2020-08-21 00:00:00+08	261	555
-35	11190236-毛芳-F8.pdf	2020-08-21 00:00:00+08	658	700
-36	11190233-戴逸韵-BRCA2.pdf	2020-08-21 00:00:00+08	659	701
-37	11190229-黄挺-ANKRD11.pdf	2020-08-21 00:00:00+08	653	695
-38	11190228-喻春梅-F9.pdf	2020-08-21 00:00:00+08	652	694
-39	11190225-秦和-PKD1.pdf	2020-08-21 00:00:00+08	647	689
-40	11190222-陆小红-RET.pdf	2020-08-21 00:00:00+08	646	688
-41	11190220-谢漫漫-MYH9.pdf	2020-08-21 00:00:00+08	641	683
-42	11190219-戴娟-TRAPPC12.pdf	2020-08-21 00:00:00+08	644	686
-43	11190216-阮阳娜-F8.pdf	2020-08-21 00:00:00+08	645	687
-44	11190215-傅宸睿-F9.pdf	2020-08-21 00:00:00+08	639	681
-45	11190213-吴溶溶-NPC1.pdf	2020-08-21 00:00:00+08	634	676
-46	11190210-张亚萍-BPTF.pdf	2020-08-21 00:00:00+08	633	675
-47	11190209-周婧倩-NF1.pdf	2020-08-21 00:00:00+08	635	677
-48	11190207-王秀英-IDS.pdf	2020-08-21 00:00:00+08	630	672
-49	11190204-张昱鑫-GJB2.pdf	2020-08-21 00:00:00+08	629	671
-50	11190201-徐葛玲-CYBB.pdf	2020-08-21 00:00:00+08	628	670
-51	11190198-韩晓梅-NPHS1.pdf	2020-08-21 00:00:00+08	621	663
-52	11190195-金勤-GUCY2C.pdf	2020-08-21 00:00:00+08	612	654
-53	11190193-王彩霞-F8.pdf	2020-08-21 00:00:00+08	616	658
-54	11190192-姜琦-ARX.pdf	2020-08-21 00:00:00+08	611	653
-55	11190189-常英健-NR0B1.pdf	2020-08-21 00:00:00+08	610	652
-56	11190186-陈玉芳-ALG1.pdf	2020-08-21 00:00:00+08	609	651
-57	11190184-周琰-SMARCA2.pdf	2020-08-21 00:00:00+08	606	648
-58	11190183-吴伊丽-COMP.pdf	2020-08-21 00:00:00+08	608	650
-59	11190180-陈相如-G6PD.pdf	2020-08-21 00:00:00+08	601	643
-60	11190177-陈相如-PKLR.pdf	2020-08-21 00:00:00+08	600	642
-61	11190174-刘培源-NF1.pdf	2020-08-21 00:00:00+08	313	641
-62	11190172-蔡玉莲-FGFR3.pdf	2020-08-21 00:00:00+08	60	635
-63	11190171-郭燕飞-CYP21A2.pdf	2020-08-21 00:00:00+08	598	640
-64	11190168-廖婧-SLC22A5.pdf	2020-08-21 00:00:00+08	590	631
-65	11190165-胡丽珊-COL1A1.pdf	2020-08-21 00:00:00+08	589	630
-66	11190162-刘明霞-F8.pdf	2020-08-21 00:00:00+08	585	626
-67	11190159-黄海军-GJB2.pdf	2020-08-21 00:00:00+08	138	625
-68	11190156-范龙梅-F9.pdf	2020-08-21 00:00:00+08	583	624
-69	11190153-王程-ATP7A.pdf	2020-08-21 00:00:00+08	582	623
-70	11190150-李婉玲-RIT1.pdf	2020-08-21 00:00:00+08	572	612
-71	11190149-徐文-F8.pdf	2020-08-21 00:00:00+08	576	616
-72	11190144-凌娟-F8.pdf	2020-08-21 00:00:00+08	570	610
-73	11190141-曹海霞-TGM1.pdf	2020-08-21 00:00:00+08	569	609
-74	11190140-韩晓辰-NKX2-5.pdf	2020-08-21 00:00:00+08	564	604
-75	11190138-顾婷-EXT2.pdf	2020-08-21 00:00:00+08	568	608
-76	11190135-朱恩-F8.pdf	2020-08-21 00:00:00+08	567	607
-77	11190133-路敏-GJB2.pdf	2020-08-21 00:00:00+08	138	596
-78	11190132-张二敏-F8.pdf	2020-08-21 00:00:00+08	329	595
-79	11190131-严志琴-MRE11A.pdf	2020-08-21 00:00:00+08	558	594
-80	11190129-杨莉娜-DMD.pdf	2020-08-21 00:00:00+08	556	592
-81	11190127-杨欣-KMT2A.pdf	2020-08-21 00:00:00+08	555	590
-82	11190126-于建莉-F8.pdf	2020-08-21 00:00:00+08	554	589
-83	11190125-颜李娜-F8.pdf	2020-08-21 00:00:00+08	553	588
-84	11190123-刘洋-COL4A5.pdf	2020-08-21 00:00:00+08	551	586
-85	11190122-宋柳-KMT2D.pdf	2020-08-21 00:00:00+08	550	585
-86	11190120-刘倩倩-IL2RG.pdf	2020-08-21 00:00:00+08	548	583
-87	11190119-李茜-TYR.pdf	2020-08-21 00:00:00+08	547	582
-88	11190118-潘越-地贫.pdf	2020-08-21 00:00:00+08	511	581
-89	11190117-章丹平-BBS10.pdf	2020-08-21 00:00:00+08	545	580
-90	11190116-汪俊-GREB1L.pdf	2020-08-21 00:00:00+08	544	579
-91	11190115-黄诗语-COL9A1.pdf	2020-08-21 00:00:00+08	543	578
-92	11190114-徐巧-SMC1A.pdf	2020-08-21 00:00:00+08	542	577
-93	11190111-徐巧-GRIN1.pdf	2020-08-21 00:00:00+08	539	574
-94	11190109-左剑伟-DYNC1H1.pdf	2020-08-21 00:00:00+08	537	572
-95	11190108-邱小红-COL4A5.pdf	2020-08-21 00:00:00+08	536	571
-96	11190107-姜晓颖-MMACHC.pdf	2020-08-21 00:00:00+08	535	570
-97	11190106-李琼-ALPL.pdf	2020-08-21 00:00:00+08	534	569
-98	11190105-雷萍萍-COL4A5.pdf	2020-08-21 00:00:00+08	533	568
-99	11190104-姜淼-WAS.pdf	2020-08-21 00:00:00+08	532	567
-100	11190103-张小慢-F9.pdf	2020-08-21 00:00:00+08	531	566
-101	11190101-许璟婧-OTC.pdf	2020-08-21 00:00:00+08	529	564
-102	11190100-王婷-SCN1A.pdf	2020-08-21 00:00:00+08	528	563
-103	11190099-张霞-VPS13B.pdf	2020-08-21 00:00:00+08	525	560
-104	11190098-贺曦-PKD1.pdf	2020-08-21 00:00:00+08	527	562
-105	11190097-欧阳文君-NF1.pdf	2020-08-21 00:00:00+08	526	561
-106	11190096-黄春园-NF1.pdf	2020-08-21 00:00:00+08	524	554
-107	11190095-陈丽婷-MUSK.pdf	2020-08-21 00:00:00+08	523	553
-108	11190094-刘倩-NF1.pdf	2020-08-21 00:00:00+08	522	552
-109	11190093-袁韵-TARS2.pdf	2020-08-21 00:00:00+08	521	551
-110	11190091-王翠-CTNS.pdf	2020-08-21 00:00:00+08	520	550
-111	11190090-王鑫-FLG.pdf	2020-08-21 00:00:00+08	519	549
-112	11190089-段晨晨-F9.pdf	2020-08-21 00:00:00+08	518	548
-113	11190088-贾文娟-F8.pdf	2020-08-21 00:00:00+08	517	547
-114	11190087-陈鎏-CDK16.pdf	2020-08-21 00:00:00+08	516	546
-115	11190086-朱丽丽-F8.pdf	2020-08-21 00:00:00+08	515	545
-116	11190085-许诗文-地贫.pdf	2020-08-21 00:00:00+08	511	544
-117	11190084-高婷婷-PIGA.pdf	2020-08-21 00:00:00+08	513	543
-118	11190083-庞凝-F8.pdf	2020-08-21 00:00:00+08	512	542
-119	11190082-潘越-地贫.pdf	2020-08-21 00:00:00+08	511	541
-120	11190081-丁芸琦-TRPM1.pdf	2020-08-21 00:00:00+08	510	540
-121	11190080-陈琦-TSC2.pdf	2020-08-21 00:00:00+08	509	539
-122	11190079-闵靖-TSC1.pdf	2020-08-21 00:00:00+08	508	538
-123	11190078-魏晨欢-CDK10.pdf	2020-08-21 00:00:00+08	507	537
-124	11190076-邓小珠-FBN1.pdf	2020-08-21 00:00:00+08	506	536
-125	11190075-刘崚昱-10q24.31q24.32.pdf	2020-08-21 00:00:00+08	505	535
-126	11190074-赵海霞-CYBB.pdf	2020-08-21 00:00:00+08	504	534
-127	11190073-黄亚萍-F8.pdf	2020-08-21 00:00:00+08	503	533
-128	11190072-张语阳-F8.pdf	2020-08-21 00:00:00+08	502	532
-129	11190071-王超-SARS2.pdf	2020-08-21 00:00:00+08	501	531
-130	11190070-侍子涵-TPP1.pdf	2020-08-21 00:00:00+08	500	530
-131	11190069-张蓉蓉-F8.pdf	2020-08-21 00:00:00+08	413	529
-132	11190068-王圆圆-PROM1.pdf	2020-08-21 00:00:00+08	499	528
-133	11190067-徐斌-FBN1.pdf	2020-08-21 00:00:00+08	498	527
-134	11190066-阮婷婷-AR.pdf	2020-08-21 00:00:00+08	497	526
-135	11190065-黄云-PKD1.pdf	2020-08-21 00:00:00+08	496	525
-136	11190064-郁晓芸-NF1.pdf	2020-08-21 00:00:00+08	495	524
-137	11190063-杨艳-PKD1.pdf	2020-08-21 00:00:00+08	494	523
-138	11190062-吕荟萍-CRX.pdf	2020-08-21 00:00:00+08	493	522
-139	11190061-朱晓静-C5orf42.pdf	2020-08-21 00:00:00+08	492	521
-140	11190060-丁改娟-PAX2.pdf	2020-08-21 00:00:00+08	491	520
-141	11190059-朱晓静-MSH2.pdf	2020-08-21 00:00:00+08	490	519
-142	11190058-孙立梅-CEP290.pdf	2020-08-21 00:00:00+08	489	518
-143	11190057-靳素娟-FGFR2.pdf	2020-08-21 00:00:00+08	488	517
-144	11190056-冯保会-COG5.pdf	2020-08-21 00:00:00+08	487	516
-145	11190054-陈凡-MPDZ.pdf	2020-08-21 00:00:00+08	485	514
-146	11190053-张刘慧-ITGA3.pdf	2020-08-21 00:00:00+08	484	513
-147	11190052-陈丹-ARSA.pdf	2020-08-21 00:00:00+08	483	512
-148	11190050-徐海静-MECP2.pdf	2020-08-21 00:00:00+08	482	510
-149	11190049-徐冲-F9.pdf	2020-08-21 00:00:00+08	481	509
-150	11190048-姚玲玲-F8.pdf	2020-08-21 00:00:00+08	480	508
-151	11190047-王利-ARSA.pdf	2020-08-21 00:00:00+08	479	507
-152	11190046-朱白桦-MME.pdf	2020-08-21 00:00:00+08	478	506
-153	11190045-张蓉蓉-DMD.pdf	2020-08-21 00:00:00+08	477	505
-154	11190044-王维维-FGFR3.pdf	2020-08-21 00:00:00+08	476	504
-155	11190043-王晓春-F8.pdf	2020-08-21 00:00:00+08	475	503
-156	11190041-郭玉琴-MTM1.pdf	2020-08-21 00:00:00+08	473	501
-157	11190039-程小燕-PLA2G6.pdf	2020-08-21 00:00:00+08	471	499
-158	11190036-李悦-CDKN1C.pdf	2020-08-21 00:00:00+08	468	496
-159	11190035-陈晶-PEX1.pdf	2020-08-21 00:00:00+08	467	495
-160	11190034-石文君-PCCB.pdf	2020-08-21 00:00:00+08	466	494
-161	11190033-董森琴-F8.pdf	2020-08-21 00:00:00+08	465	493
-162	11190032-刘劝劝-F8.pdf	2020-08-21 00:00:00+08	464	492
-163	11190031-徐婷-F8.pdf	2020-08-21 00:00:00+08	463	491
-164	11190030-赵艳平-PRDM16.pdf	2020-08-21 00:00:00+08	462	490
-165	11190029-王莺-F8.pdf	2020-08-21 00:00:00+08	461	489
-166	11190028-陈丹-RAD50.pdf	2020-08-21 00:00:00+08	460	488
-167	11190027-周清勤-ATM.pdf	2020-08-21 00:00:00+08	459	487
-168	11190026-谢芝妮-MUT.pdf	2020-08-21 00:00:00+08	458	486
-169	11190025-陈心怡-PKD1.pdf	2020-08-21 00:00:00+08	457	485
-170	11190024-张颖-CRB1.pdf	2020-08-21 00:00:00+08	456	484
-171	11190023-邵佩娜-COL11A1.pdf	2020-08-21 00:00:00+08	455	483
-172	11190022-邵佩娜-COL1A2.pdf	2020-08-21 00:00:00+08	454	482
-173	11190021-鲁爱莲-IL2RG.pdf	2020-08-21 00:00:00+08	453	481
-174	11181019-李梅霞-F8.pdf	2020-08-21 00:00:00+08	427	466
-175	11181019-李梅霞-F8.pdf	2020-08-21 00:00:00+08	452	466
-176	11181018-王判-F8.pdf	2020-08-21 00:00:00+08	427	464
-177	11181017-时瑶瑶-F8.pdf	2020-08-21 00:00:00+08	427	455
-178	11181015-杜晓璐-F8.pdf	2020-08-21 00:00:00+08	427	453
-179	11181014-李慧-F8.pdf	2020-08-21 00:00:00+08	427	452
-180	11181013-董秋丽-F8.pdf	2020-08-21 00:00:00+08	427	451
-181	11181011-谢佳霞-F8.pdf	2020-08-21 00:00:00+08	427	449
-182	11181010-张香萍-F8.pdf	2020-08-21 00:00:00+08	427	448
-183	11181009-王丽-F8.pdf	2020-08-21 00:00:00+08	427	447
-184	11181008-王淑贤-F8.pdf	2020-08-21 00:00:00+08	427	446
-185	11181007-王艺-F8.pdf	2020-08-21 00:00:00+08	427	445
-186	11181006-胡珍-F8.pdf	2020-08-21 00:00:00+08	427	444
-187	11181005-李媛媛-F8.pdf	2020-08-21 00:00:00+08	427	443
-188	11181004-郑毓秀-F8.pdf	2020-08-21 00:00:00+08	427	442
-189	11181003-史沫-F8.pdf	2020-08-21 00:00:00+08	427	441
-190	11181002-朱柳平-F8.pdf	2020-08-21 00:00:00+08	427	440
-191	11181001-张泽阳-F9.pdf	2020-08-21 00:00:00+08	426	439
-192	11180195-彭思-ATXN3.pdf	2020-08-21 00:00:00+08	451	479
-193	11180193-杨红磊-TYR.pdf	2020-08-21 00:00:00+08	449	477
-194	11180192-朱孟华-COL4A5.pdf	2020-08-21 00:00:00+08	448	476
-195	11180191-谭亚茹-EPHB4.pdf	2020-08-21 00:00:00+08	447	475
-196	11180190-柯文珺-COL1A1.pdf	2020-08-21 00:00:00+08	446	474
-197	11180189-赵芬-DMD.pdf	2020-08-21 00:00:00+08	445	473
-198	11180188-朱治芳-SMC1A.pdf	2020-08-21 00:00:00+08	444	472
-199	11180187-董莉莉-NOTCH1.pdf	2020-08-21 00:00:00+08	443	471
-200	11180186-高梦茹-GJB2.pdf	2020-08-21 00:00:00+08	306	470
-201	11180185-董莉莉-TNNI3.pdf	2020-08-21 00:00:00+08	441	469
-202	11180184-徐杰-MMACHC.pdf	2020-08-21 00:00:00+08	440	468
-203	11180183-唐怡-TMEM67.pdf	2020-08-21 00:00:00+08	439	467
-204	11180181-刘春霞-F8.pdf	2020-08-21 00:00:00+08	437	465
-205	11180180-孙立丽-SETD2.pdf	2020-08-21 00:00:00+08	435	463
-206	11180179-王敏-RAG1.pdf	2020-08-21 00:00:00+08	434	462
-207	11180178-欧阳宇-SUFU.pdf	2020-08-21 00:00:00+08	291	461
-208	11180176-何长美-RET.pdf	2020-08-21 00:00:00+08	432	460
-209	11180175-孟莹莹-NDP.pdf	2020-08-21 00:00:00+08	425	438
-210	11180174-徐晶-F8.pdf	2020-08-21 00:00:00+08	431	459
-211	11180171-孙勇-WFS1.pdf	2020-08-21 00:00:00+08	423	436
-212	11180170-黄大敏-NIPA1.pdf	2020-08-21 00:00:00+08	780	435
-213	11180170-黄大敏-NIPA1.pdf	2020-08-21 00:00:00+08	429	435
-214	11180168-管峻-ANK1.pdf	2020-08-21 00:00:00+08	421	433
-215	11180164-邢兰香-F8.pdf	2020-08-21 00:00:00+08	417	429
-216	11180163-陆琳琰-VWF.pdf	2020-08-21 00:00:00+08	416	428
-217	11180162-余素瑶-GBE1.pdf	2020-08-21 00:00:00+08	369	427
-218	11180161-陆琳琰-F8.pdf	2020-08-21 00:00:00+08	414	426
-219	11180160-郑洁-F8.pdf	2020-08-21 00:00:00+08	413	425
-220	11180159-王连连-PKHD1.pdf	2020-08-21 00:00:00+08	412	424
-221	11180158-刘曼-F7.pdf	2020-08-21 00:00:00+08	411	423
-222	11180157-沈骏婕-DMD.pdf	2020-08-21 00:00:00+08	410	422
-223	11180156-朱冬林-SCN1A.pdf	2020-08-21 00:00:00+08	409	421
-224	11180155-刘静-TOP3A.pdf	2020-08-21 00:00:00+08	408	420
-225	11180154-施丽君-GREB1L.pdf	2020-08-21 00:00:00+08	407	419
-226	11180153-韦秋惠-TAF2.pdf	2020-08-21 00:00:00+08	406	418
-227	11180152-戴雯-BRCA2.pdf	2020-08-21 00:00:00+08	405	417
-228	11180150-龚君芳-DMD.pdf	2020-08-21 00:00:00+08	403	415
-229	11180149-何宇浩-ATXN3.pdf	2020-08-21 00:00:00+08	402	414
-230	11180148-龚君芳-ANK1.pdf	2020-08-21 00:00:00+08	401	413
-231	11180144-余漫-TYR.pdf	2020-08-21 00:00:00+08	397	409
-232	11180143-赵雪-F8.pdf	2020-08-21 00:00:00+08	396	408
-233	11180142-黄巧玲-F8.pdf	2020-08-21 00:00:00+08	395	407
-234	11180141-祝嫣婷-F8.pdf	2020-08-21 00:00:00+08	394	406
-235	11180140-张良娟-MYH7.pdf	2020-08-21 00:00:00+08	393	405
-236	11180138-陈霞-PAH.pdf	2020-08-21 00:00:00+08	391	403
-237	11180136-米雪-F8.pdf	2020-08-21 00:00:00+08	389	401
-238	11180134-陆伟飞-FLG.pdf	2020-08-21 00:00:00+08	387	399
-239	11180132-徐丹-IGHMBP2.pdf	2020-08-21 00:00:00+08	385	397
-240	11180130-陈洁-GRIN2D.pdf	2020-08-21 00:00:00+08	383	395
-241	11180128-温丽娟-COL4A5.pdf	2020-08-21 00:00:00+08	381	393
-242	11180126-刘晶晶-F8.pdf	2020-08-21 00:00:00+08	379	391
-243	11180122-朱梦娇-CRYBB2.pdf	2020-08-21 00:00:00+08	375	387
-244	11180118-杨永祥-IL2RG.pdf	2020-08-21 00:00:00+08	371	383
-245	11180117-韩春华-PKD2.pdf	2020-08-21 00:00:00+08	370	382
-246	11180116-余素瑶-GBE1.pdf	2020-08-21 00:00:00+08	369	381
-247	11180112-朱元春-VHL.pdf	2020-08-21 00:00:00+08	366	377
-248	11180110-马丹华-PRODH.pdf	2020-08-21 00:00:00+08	364	375
-249	11180108-袁晓慧-EDA.pdf	2020-08-21 00:00:00+08	362	373
-250	11180106-张晶-CRYAA.pdf	2020-08-21 00:00:00+08	360	371
-251	11180104-陈桂香-地贫.pdf	2020-08-21 00:00:00+08	358	369
-252	11180103-陈凯-PKD1.pdf	2020-08-21 00:00:00+08	357	368
-253	11180102-张孜安-FGFR3.pdf	2020-08-21 00:00:00+08	356	367
-254	11180100-汤文娟-FBN1.pdf	2020-08-21 00:00:00+08	354	365
-255	11180098-崔芳-F8.pdf	2020-08-21 00:00:00+08	352	363
-256	11180092-成晶晖-F8.pdf	2020-08-21 00:00:00+08	347	358
-257	11180091-韩翠萍-F8.pdf	2020-08-21 00:00:00+08	346	357
-258	11180090-杨玉萍-PKHD1.pdf	2020-08-21 00:00:00+08	345	356
-259	11180089-唐悦-BRCA1.pdf	2020-08-21 00:00:00+08	343	355
-260	11180089-唐悦-BRCA1.pdf	2020-08-21 00:00:00+08	344	355
-261	11180088-黄彩虹-TSC2.pdf	2020-08-21 00:00:00+08	779	354
-262	11180087-胡志芳-ARR3.pdf	2020-08-21 00:00:00+08	342	353
-263	11180085-蔡霖-FBN1.pdf	2020-08-21 00:00:00+08	340	351
-264	11180084-杨梅-SRD5A2.pdf	2020-08-21 00:00:00+08	339	350
-265	11180083-孙婷-SRD5A2.pdf	2020-08-21 00:00:00+08	338	349
-266	11180081-陆鹏屹-F8.pdf	2020-08-21 00:00:00+08	336	347
-267	11180079-王文君-F8.pdf	2020-08-21 00:00:00+08	334	345
-268	11180078-江丽-PHF8.pdf	2020-08-21 00:00:00+08	333	344
-269	11180076-宋福贵-BICC1.pdf	2020-08-21 00:00:00+08	331	342
-270	11180075-沈圣云-KMT2D.pdf	2020-08-21 00:00:00+08	330	341
-271	11180074-张艳玲-F8.pdf	2020-08-21 00:00:00+08	329	340
-272	11180073-王怡菲-CHEK2.pdf	2020-08-21 00:00:00+08	328	339
-273	11180072-艾莎莎-F8.pdf	2020-08-21 00:00:00+08	327	338
-274	11180071-郜文玲-FOXF1.pdf	2020-08-21 00:00:00+08	326	337
-275	11180070-张晓娜-IL2RG.pdf	2020-08-21 00:00:00+08	325	336
-276	11180069-高嫄-MECP2.pdf	2020-08-21 00:00:00+08	324	335
-277	11180067-周丽玲-F9.pdf	2020-08-21 00:00:00+08	323	334
-278	11180066-张旭-ANK1.pdf	2020-08-21 00:00:00+08	322	333
-279	11180065-周丽丽-F8.pdf	2020-08-21 00:00:00+08	321	332
-280	11180064-张军令-KDM5C.pdf	2020-08-21 00:00:00+08	320	331
-281	11180063-张律-CALR.pdf	2020-08-21 00:00:00+08	319	330
-282	11180061-梁珍敏-FBN1.pdf	2020-08-21 00:00:00+08	778	328
-283	11180059-张小伟-CLCN7.pdf	2020-08-21 00:00:00+08	777	326
-284	11180058-侯元丽-NF1.pdf	2020-08-21 00:00:00+08	313	325
-285	11180057-张海宏-NF1.pdf	2020-08-21 00:00:00+08	313	324
-286	11180056-张婧屹-EPHB4.pdf	2020-08-21 00:00:00+08	311	323
-287	11180056-张婧屹-EPHB4.pdf	2020-08-21 00:00:00+08	312	323
-288	11180053-余臻-WDR73.pdf	2020-08-21 00:00:00+08	309	320
-289	11180052-田超-WDR19.pdf	2020-08-21 00:00:00+08	308	319
-290	11180051-范静-SLC5A7.pdf	2020-08-21 00:00:00+08	307	318
-291	11180050-王丽-GJB2.pdf	2020-08-21 00:00:00+08	306	317
-292	11180048-刘冰冰-PKD1.pdf	2020-08-21 00:00:00+08	304	315
-293	11180046-路晓叶-F8.pdf	2020-08-21 00:00:00+08	302	313
-294	11180045-胡玲-F8.pdf	2020-08-21 00:00:00+08	143	312
-295	11180044-马素珍-IL2RG.pdf	2020-08-21 00:00:00+08	301	311
-296	11180043-陈睿-RB1.pdf	2020-08-21 00:00:00+08	300	310
-297	11180042-王洁-FGFR3.pdf	2020-08-21 00:00:00+08	356	309
-298	11180041-袁媛-F8.pdf	2020-08-21 00:00:00+08	299	308
-299	11180040-崔云芳-F9.pdf	2020-08-21 00:00:00+08	298	307
-300	11180039-琚榕榕-SLC26A4.pdf	2020-08-21 00:00:00+08	297	306
-301	11180038-陈素娅-F8.pdf	2020-08-21 00:00:00+08	296	305
-302	11180037-吾露萍-GJB2.pdf	2020-08-21 00:00:00+08	295	304
-303	11180036-沈丹-STS.pdf	2020-08-21 00:00:00+08	293	303
-304	11180036-沈丹-STS.pdf	2020-08-21 00:00:00+08	294	303
-305	11180035-彭丹丹-F8.pdf	2020-08-21 00:00:00+08	292	302
-306	11180034-欧阳宇-SUFU.pdf	2020-08-21 00:00:00+08	291	301
-307	11180033-王焘-COL7A1.pdf	2020-08-21 00:00:00+08	290	300
-308	11180032-邓慧-PKD1.pdf	2020-08-21 00:00:00+08	289	299
-309	11180031-冯桃桃-AMPD2.pdf	2020-08-21 00:00:00+08	288	298
-310	11180030-王婕-COL1A1.pdf	2020-08-21 00:00:00+08	287	297
-311	11180029-刘梅-GALNS.pdf	2020-08-21 00:00:00+08	286	296
-312	11180028-董丽华-TTR.pdf	2020-08-21 00:00:00+08	285	295
-313	11180024-许连凤-COL6A1.pdf	2020-08-21 00:00:00+08	281	291
-314	11180023-张曼曼-COL1A1.pdf	2020-08-21 00:00:00+08	280	290
-315	11180022-姚梦雪-F8.pdf	2020-08-21 00:00:00+08	279	289
-316	11180021-叶俊琪-COL4A5.pdf	2020-08-21 00:00:00+08	278	288
-317	11180020-张宏霞-EDA.pdf	2020-08-21 00:00:00+08	277	287
-318	11180018-施妹妹-F8.pdf	2020-08-21 00:00:00+08	275	285
-319	11180017-汪苏云-F8.pdf	2020-08-21 00:00:00+08	274	284
-320	11180016-朱从霄-FLG.pdf	2020-08-21 00:00:00+08	273	283
-321	11180015-高发修-MUT.pdf	2020-08-21 00:00:00+08	272	282
-322	11180012-王圣芳-BCKDHB.pdf	2020-08-21 00:00:00+08	269	279
-323	11180011-汪廷惠-NF2.pdf	2020-08-21 00:00:00+08	268	278
-324	11180010-黄巧芳-ANK1.pdf	2020-08-21 00:00:00+08	267	277
-325	11180009-李丰芝-F8.pdf	2020-08-21 00:00:00+08	266	276
-326	11180008-王晓春-PKHD1.pdf	2020-08-21 00:00:00+08	265	275
-327	11180007-芮华政-MAGEL2.pdf	2020-08-21 00:00:00+08	264	274
-328	11180006-王元琼-ABCD1.pdf	2020-08-21 00:00:00+08	263	273
-329	11180005-吴国珍-NPHS1.pdf	2020-08-21 00:00:00+08	262	272
-330	11180004-冯海娟-COL6A2.pdf	2020-08-21 00:00:00+08	213	271
-331	11180003-廖玲娟-F8.pdf	2020-08-21 00:00:00+08	261	270
-332	11180002-张璐-TRPS1.pdf	2020-08-21 00:00:00+08	260	269
-333	11180001-吴岐珍-GAA.pdf	2020-08-21 00:00:00+08	259	268
-334	11170108-周赟-CEP290.pdf	2020-08-21 00:00:00+08	257	267
-335	11170108-周赟-CEP290.pdf	2020-08-21 00:00:00+08	258	267
-336	11170107-戚卉雯-FBN1.pdf	2020-08-21 00:00:00+08	256	266
-337	11170106-周佳美-AGXT.pdf	2020-08-21 00:00:00+08	255	265
-338	11170104-康俊鸿-CYP21A2.pdf	2020-08-21 00:00:00+08	253	263
-339	11170103-宋佳青-RPGR.pdf	2020-08-21 00:00:00+08	252	262
-340	11170102-张庆泉-COL4A5.pdf	2020-08-21 00:00:00+08	251	261
-341	11170101-刘江丽-RB1.pdf	2020-08-21 00:00:00+08	250	260
-342	11170099-范娟娟-OCA2.pdf	2020-08-21 00:00:00+08	248	258
-343	11170098-杜茜-F8.pdf	2020-08-21 00:00:00+08	247	257
-344	11170097- 陈琳-OCA2.pdf	2020-08-21 00:00:00+08	246	256
-345	11170096-包雪芳-CAPN3.pdf	2020-08-21 00:00:00+08	245	255
-346	11170095-张朵朵-SLC25A13.pdf	2020-08-21 00:00:00+08	244	254
-347	11170094-刘煜-COL1A1.pdf	2020-08-21 00:00:00+08	243	253
-348	11170093-王森-PAH.pdf	2020-08-21 00:00:00+08	242	252
-349	11170091-马月-ALPL.pdf	2020-08-21 00:00:00+08	240	250
-350	11170090-戴铭辰-PIGA.pdf	2020-08-21 00:00:00+08	239	249
-351	11170089-赵雪霞-PANK2.pdf	2020-08-21 00:00:00+08	238	248
-352	11170088-叶巧萍-F8.pdf	2020-08-21 00:00:00+08	237	247
-353	11170085-张静静-CYP21A2.pdf	2020-08-21 00:00:00+08	234	244
-354	11170084-曹杰-STS.pdf	2020-08-21 00:00:00+08	233	243
-355	11170083-王琳琳-ABCC8.pdf	2020-08-21 00:00:00+08	232	242
-356	11170082-卢凤英-SRD5A2.pdf	2020-08-21 00:00:00+08	231	241
-357	11170081-陈会君-PMP22.pdf	2020-08-21 00:00:00+08	230	240
-358	11170080-包乐燕-SLC26A4.pdf	2020-08-21 00:00:00+08	229	239
-359	11170079-周海花-TSPAN12.pdf	2020-08-21 00:00:00+08	228	238
-360	11170078-俞霞-MKS1.pdf	2020-08-21 00:00:00+08	227	237
-361	11170076-徐晓燕-TSPAN12.pdf	2020-08-21 00:00:00+08	226	235
-362	11170075-许宗宇-OCA2.pdf	2020-08-21 00:00:00+08	225	234
-363	11170074-唐金枝-ATRX.pdf	2020-08-21 00:00:00+08	224	233
-364	11170073-朱瑞-LAMB2.pdf	2020-08-21 00:00:00+08	223	232
-365	11170071-曹令娴-FGFR3.pdf	2020-08-21 00:00:00+08	357	230
-366	11170070-沈蓓蕾-PLP1.pdf	2020-08-21 00:00:00+08	220	229
-367	11170069-何文-PKD1.pdf	2020-08-21 00:00:00+08	219	228
-368	11170067-王新悦-TSC2.pdf	2020-08-21 00:00:00+08	218	226
-369	11170066-王秀真-RAG1.pdf	2020-08-21 00:00:00+08	217	225
-370	11170065-陈俊楠-EXT1.pdf	2020-08-21 00:00:00+08	216	224
-371	11170064-朱丹丹-BTK.pdf	2020-08-21 00:00:00+08	215	223
-372	11170063-邹蕾蕾-PKD1.pdf	2020-08-21 00:00:00+08	214	222
-373	11170062-曾艳-COL6A2.pdf	2020-08-21 00:00:00+08	213	221
-374	11170061-吴晓兰-EDA.pdf	2020-08-21 00:00:00+08	212	220
-375	11170060-周旖旎-DMD.pdf	2020-08-21 00:00:00+08	211	219
-376	11170059-吕剑云-NF1.pdf	2020-08-21 00:00:00+08	210	218
-377	11170058-余德丽-ATRX.pdf	2020-08-21 00:00:00+08	209	217
-378	11170057-黄琬淇-NF1.pdf	2020-08-21 00:00:00+08	208	216
-379	11170056-唐鑫鑫-ACADVL.pdf	2020-08-21 00:00:00+08	207	215
-380	11170055-董萌萌-MUT.pdf	2020-08-21 00:00:00+08	206	214
-381	11170054-伊永胜-LDLR.pdf	2020-08-21 00:00:00+08	205	213
-382	11170053-范雪芹-RET.pdf	2020-08-21 00:00:00+08	204	212
-383	11170052-周频之小子-MBTPS2.pdf	2020-08-21 00:00:00+08	203	211
-384	11170051-张梦婷-PKD1.pdf	2020-08-21 00:00:00+08	202	210
-385	11170050-何颖颖-CYP21A2.pdf	2020-08-21 00:00:00+08	201	209
-386	11170049-陈燕-TYR.pdf	2020-08-21 00:00:00+08	200	208
-387	11170047-周秀连-COL4A5.pdf	2020-08-21 00:00:00+08	198	206
-388	11170046-俞飞-NPHS1.pdf	2020-08-21 00:00:00+08	197	205
-389	11170045-徐清华-ARSA.pdf	2020-08-21 00:00:00+08	196	204
-390	11170044-李伟波-IL10RA.pdf	2020-08-21 00:00:00+08	195	203
-391	11170043-程红-NF1.pdf	2020-08-21 00:00:00+08	194	202
-392	11170042-冯辉-FGFR3.pdf	2020-08-21 00:00:00+08	356	201
-393	11170041-吴仙兵-UBE3A.pdf	2020-08-21 00:00:00+08	193	200
-394	11170040-戎英静-ABCD1.pdf	2020-08-21 00:00:00+08	192	199
-395	11170039-梁宇青-DYNC2H1.pdf	2020-08-21 00:00:00+08	191	198
-396	11170038-黄彩凤-COL1A1.pdf	2020-08-21 00:00:00+08	190	197
-397	11170037-吴三妹-OCA2.pdf	2020-08-21 00:00:00+08	189	196
-398	11170036-覃碧芳-HBA.pdf	2020-08-21 00:00:00+08	119	195
-399	11170035-宋冬妹-IL2RG.pdf	2020-08-21 00:00:00+08	188	194
-400	11170034-王珊珊-NEB.pdf	2020-08-21 00:00:00+08	187	193
-401	11170033-张爱华-IL7R.pdf	2020-08-21 00:00:00+08	186	192
-402	11170032-陆士成-PKD1.pdf	2020-08-21 00:00:00+08	185	191
-403	11170030-叶柳菁-RPGR.pdf	2020-08-21 00:00:00+08	183	189
-404	11170029-裴萍萍-STS.pdf	2020-08-21 00:00:00+08	182	188
-405	11170028-王俊霞-SCN1A.pdf	2020-08-21 00:00:00+08	181	187
-406	11170027-戴花-STS.pdf	2020-08-21 00:00:00+08	180	186
-407	11170026-樊华-COL2A1.pdf	2020-08-21 00:00:00+08	179	185
-408	11170025-胡李文-ATP7B.pdf	2020-08-21 00:00:00+08	178	184
-409	11170024-谈云-DMD.pdf	2020-08-21 00:00:00+08	177	183
-410	11170023-吕玲玲-TYR.pdf	2020-08-21 00:00:00+08	176	182
-411	11170022-陈采红-CNGA1.pdf	2020-08-21 00:00:00+08	175	181
-412	11170021-陈瑶-NF1.pdf	2020-08-21 00:00:00+08	174	180
-413	11170020-陈佳妮-ABCA4.pdf	2020-08-21 00:00:00+08	173	179
-414	11170019-周子怡-G6PC.pdf	2020-08-21 00:00:00+08	172	178
-415	11170018-徐原-OTC.pdf	2020-08-21 00:00:00+08	171	177
-416	11170017-廖永光-MIP.pdf	2020-08-21 00:00:00+08	170	176
-417	11170016-陈欣玫-PKHD1.pdf	2020-08-21 00:00:00+08	169	175
-418	11170015-俞璐萍-CYP17A1.pdf	2020-08-21 00:00:00+08	168	174
-419	11170014-孙瑞晨-LIG4.pdf	2020-08-21 00:00:00+08	167	173
-420	11170013-申俊杰-COL4A5.pdf	2020-08-21 00:00:00+08	166	172
-421	11170012-王园卿-TYR.pdf	2020-08-21 00:00:00+08	165	171
-422	11170011-李娜-NHS.pdf	2020-08-21 00:00:00+08	164	170
-423	11170010-潘皓轩-SCN1A.pdf	2020-08-21 00:00:00+08	163	169
-424	11170009-仇毓-UNC80.pdf	2020-08-21 00:00:00+08	162	168
-425	11170007-胡振晔-CRYGC.pdf	2020-08-21 00:00:00+08	775	166
-426	11170006-倪建军-TYR.pdf	2020-08-21 00:00:00+08	159	165
-427	11170005-翁玉群-GUCY2D.pdf	2020-08-21 00:00:00+08	158	164
-428	11170003-赵海-IRF6.pdf	2020-08-21 00:00:00+08	156	162
-429	11170002-沈李倩-FMR1.pdf	2020-08-21 00:00:00+08	155	161
-430	11170001-余勐-F8.pdf	2020-08-21 00:00:00+08	154	160
-431	11160085-周莉萍-ACADVL.pdf	2020-08-21 00:00:00+08	153	159
-432	11160084-张健-DYSF.pdf	2020-08-21 00:00:00+08	152	158
-433	11160083-张雅琳-EXT2.pdf	2020-08-21 00:00:00+08	151	157
-434	11160082-俞仙亚-COL7A1.pdf	2020-08-21 00:00:00+08	150	156
-435	11160081-袁喆静-NF1.pdf	2020-08-21 00:00:00+08	149	155
-436	11160080-张灿微-OPA1.pdf	2020-08-21 00:00:00+08	148	154
-437	11160079-韩中雪-ASL.pdf	2020-08-21 00:00:00+08	147	153
-438	11160078-张汉林-BSCL2.pdf	2020-08-21 00:00:00+08	146	152
-439	11160077-黄贵花-ATRX.pdf	2020-08-21 00:00:00+08	145	151
-440	11160076-杨爱华-SRD5A2.pdf	2020-08-21 00:00:00+08	144	150
-441	11160075-郑航芝-STS.pdf	2020-08-21 00:00:00+08	24	149
-442	11160074-曾春云-F8.pdf	2020-08-21 00:00:00+08	143	148
-443	11160073-王梓旭-UBE3A.pdf	2020-08-21 00:00:00+08	142	147
-444	11160072-陈艳-MT-TL1.pdf	2020-08-21 00:00:00+08	141	146
-445	11160071-耿英慈-TYR.pdf	2020-08-21 00:00:00+08	140	145
-446	11160070-汪红英-DMD.pdf	2020-08-21 00:00:00+08	139	144
-447	11160069-曲明阳-GJB2.pdf	2020-08-21 00:00:00+08	138	143
-448	11160068-黄春艳-PKD1.pdf	2020-08-21 00:00:00+08	137	142
-449	11160066-王玲群-RAG2.pdf	2020-08-21 00:00:00+08	135	140
-450	11160064-王萍-FANCA.pdf	2020-08-21 00:00:00+08	133	138
-451	11160062-戴懿-TSC1.pdf	2020-08-21 00:00:00+08	131	136
-452	11160061-诸寅-NF1.pdf	2020-08-21 00:00:00+08	130	135
-453	11160060-唐箫-TCIRG1.pdf	2020-08-21 00:00:00+08	129	134
-454	11160059-钱洁-EXT1.pdf	2020-08-21 00:00:00+08	128	133
-455	11160058-周婧雯-BRAF.pdf	2020-08-21 00:00:00+08	127	132
-456	11160057-裴硕-BRCA1.pdf	2020-08-21 00:00:00+08	126	131
-457	11160056-张叶-TP53.pdf	2020-08-21 00:00:00+08	125	130
-458	11160054-朱文俊-IL7R.pdf	2020-08-21 00:00:00+08	123	128
-459	11160053-向晓艳-FGFR3.pdf	2020-08-21 00:00:00+08	356	127
-460	11160052-施春女-ADGRG1.pdf	2020-08-21 00:00:00+08	122	126
-461	11160051-魏晓琴-OTC.pdf	2020-08-21 00:00:00+08	121	125
-462	11160050-程兵兵-WAS.pdf	2020-08-21 00:00:00+08	120	124
-463	11160049-程雪花-HBA-HBB.pdf	2020-08-21 00:00:00+08	119	123
-464	11160048-高文-FLNB.pdf	2020-08-21 00:00:00+08	118	122
-465	11160047-吴桂萍-CLCN5.pdf	2020-08-21 00:00:00+08	117	121
-466	11160046-刘则馥-PKLR.pdf	2020-08-21 00:00:00+08	116	120
-467	11160045-余音-FOXP3.pdf	2020-08-21 00:00:00+08	115	119
-468	11160044-姜晰-EVC2.pdf	2020-08-21 00:00:00+08	114	118
-469	11160043-包秋珍-FMR1.pdf	2020-08-21 00:00:00+08	113	117
-470	11160042-陶源-CDH1.pdf	2020-08-21 00:00:00+08	112	116
-471	11160041-郭淑杰-F9.pdf	2020-08-21 00:00:00+08	111	115
-472	11160040-宗乐-MAGEL2.pdf	2020-08-21 00:00:00+08	110	114
-473	11160039-杨春霞-COL1A1.pdf	2020-08-21 00:00:00+08	2	113
-474	11160038-马月玲-FBN1.pdf	2020-08-21 00:00:00+08	109	112
-475	11160037-袁慧娟-SHOX.pdf	2020-08-21 00:00:00+08	108	111
-476	11160036-陈思斯-NF1.pdf	2020-08-21 00:00:00+08	107	110
-477	11160034-李培凯-COL4A5.pdf	2020-08-21 00:00:00+08	105	108
-478	11160033-李丽娜-PLA2G6.pdf	2020-08-21 00:00:00+08	104	107
-479	11160032-朱晓艳-GNPTAB.pdf	2020-08-21 00:00:00+08	103	106
-480	11160031-杨思怡-G6PD.pdf	2020-08-21 00:00:00+08	102	105
-481	11160029-王妤扬-FGFR3.pdf	2020-08-21 00:00:00+08	60	103
-482	11160028-刘峰-DMD.pdf	2020-08-21 00:00:00+08	100	102
-483	11160027-郑达权-GUCY2D.pdf	2020-08-21 00:00:00+08	99	101
-484	11160026-王艺睿-LMNA.pdf	2020-08-21 00:00:00+08	98	100
-485	11160025-叶晨焕-MSH2.pdf	2020-08-21 00:00:00+08	97	99
-486	11160024-陈洋多-TYR.pdf	2020-08-21 00:00:00+08	96	98
-487	11160023-胡晓敏-KDM6A.pdf	2020-08-21 00:00:00+08	95	97
-488	11160022-李遵容-TSC2.pdf	2020-08-21 00:00:00+08	94	96
-489	11160021-周笑飞-NF1.pdf	2020-08-21 00:00:00+08	93	95
-490	11160020-许湘洪-RMND1.pdf	2020-08-21 00:00:00+08	92	94
-491	11160019-裘李英-SERPINB7.pdf	2020-08-21 00:00:00+08	91	93
-492	11160018-李建娟-ITGB4.pdf	2020-08-21 00:00:00+08	90	92
-493	11160017-汪桂芳-DIAPH2.pdf	2020-08-21 00:00:00+08	89	91
-494	11160016-李招弟-CD40LG.pdf	2020-08-21 00:00:00+08	88	90
-495	11160015-万海云-IDUA.pdf	2020-08-21 00:00:00+08	87	89
-496	11160014-李美红-HBA1.pdf	2020-08-21 00:00:00+08	86	88
-497	11160013-侯丽侠-GJB2.pdf	2020-08-21 00:00:00+08	85	87
-498	11160012-王慧强-RAG2.pdf	2020-08-21 00:00:00+08	84	86
-499	11160011-梁峰-PKD1.pdf	2020-08-21 00:00:00+08	20	85
-500	11160010-顾晓琦-ELN.pdf	2020-08-21 00:00:00+08	83	84
-501	11160009-胡曼-NF1.pdf	2020-08-21 00:00:00+08	82	83
-502	11160006-简嘉-FLG.pdf	2020-08-21 00:00:00+08	80	81
-503	11160005-李公祥-FLG.pdf	2020-08-21 00:00:00+08	79	80
-504	11160004-楚艳丽-SGSH.pdf	2020-08-21 00:00:00+08	78	79
-505	11160003-李春霞-BTK.pdf	2020-08-21 00:00:00+08	77	78
-506	11160002-裴玲-TYR.pdf	2020-08-21 00:00:00+08	76	77
-507	11160001-沈维佳-TSC2.pdf	2020-08-21 00:00:00+08	75	76
-508	11150069-黄芳-NPHP3.pdf	2020-08-21 00:00:00+08	74	75
-509	11150068-周蓉-FBN1.pdf	2020-08-21 00:00:00+08	73	74
-510	11150067-夏岚-ADA.pdf	2020-08-21 00:00:00+08	72	73
-511	11150066-陈兴峰-DMD.pdf	2020-08-21 00:00:00+08	71	72
-512	11150064-施霞敏-SLC17A8.pdf	2020-08-21 00:00:00+08	69	70
-513	11150063-叶红-IL2RG.pdf	2020-08-21 00:00:00+08	68	69
-514	11150062-叶优艳-BRCA2.pdf	2020-08-21 00:00:00+08	67	68
-515	11150061-金韶华-DMD.pdf	2020-08-21 00:00:00+08	66	67
-516	11150060-朱殿云-SMN1.pdf	2020-08-21 00:00:00+08	65	66
-517	11150059-钱枫-GJB2.pdf	2020-08-21 00:00:00+08	64	65
-518	11150058-孙银华-PKD1.pdf	2020-08-21 00:00:00+08	63	64
-519	11150057-金花-DMD.pdf	2020-08-21 00:00:00+08	62	63
-520	11150056-冯惠英-CLO4A4.pdf	2020-08-21 00:00:00+08	61	62
-521	11150055-刘平-FGFR3.pdf	2020-08-21 00:00:00+08	60	61
-522	11150054-徐建余-PAX6.pdf	2020-08-21 00:00:00+08	59	60
-523	11150053-尹鹏-PKD1.pdf	2020-08-21 00:00:00+08	58	59
-524	11150051-李慢-SH2D1A.pdf	2020-08-21 00:00:00+08	56	57
-525	11150050-沈晓杰-G6PC.pdf	2020-08-21 00:00:00+08	55	56
-526	11150049-姚盈-LDLR.pdf	2020-08-21 00:00:00+08	54	55
-527	11150048-汪琴-DYSF.pdf	2020-08-21 00:00:00+08	53	54
-528	11150047-齐巧艳-GFAP.pdf	2020-08-21 00:00:00+08	52	53
-529	11150046-虞磊-BTK.pdf	2020-08-21 00:00:00+08	51	52
-530	11150045-朱念念-FGFR3.pdf	2020-08-21 00:00:00+08	50	51
-531	11150044-平霞霞-RAG1.pdf	2020-08-21 00:00:00+08	49	50
-532	11150043-庞霞-PKHD1.pdf	2020-08-21 00:00:00+08	48	49
-533	11150042-沈萍-JAG1.pdf	2020-08-21 00:00:00+08	47	48
-534	11150041-徐枫琳-CEP290.pdf	2020-08-21 00:00:00+08	46	47
-535	11150040-齐芳灵-COL4A5.pdf	2020-08-21 00:00:00+08	45	46
-536	11150039-刘琴-GCDH.pdf	2020-08-21 00:00:00+08	44	45
-537	11150038-何建兵-FBN1.pdf	2020-08-21 00:00:00+08	43	44
-538	11150037-黄伟华-COL4A5.pdf	2020-08-21 00:00:00+08	42	43
-539	11150036-吴丹-HBA1.pdf	2020-08-21 00:00:00+08	41	42
-540	11150035-陆锋-PMP22.pdf	2020-08-21 00:00:00+08	40	41
-541	11150034-虞菲敏-DMD.pdf	2020-08-21 00:00:00+08	39	40
-542	11150033-韩寅卿-TGFBR1.pdf	2020-08-21 00:00:00+08	38	39
-543	11150032-陈逸雯-SMC1A.pdf	2020-08-21 00:00:00+08	37	38
-544	11150030-涂燕华-ABCD1.pdf	2020-08-21 00:00:00+08	36	37
-545	11150029-陈莉-SMN1.pdf	2020-08-21 00:00:00+08	35	36
-546	11150028-何晓晔-TSC1.pdf	2020-08-21 00:00:00+08	34	35
-547	11150027-李丽萍-FGFR3.pdf	2020-08-21 00:00:00+08	356	34
-548	11150026-顾晓庆-TYR.pdf	2020-08-21 00:00:00+08	33	33
-549	11150024-林绍擎-PKD1.pdf	2020-08-21 00:00:00+08	31	31
-550	11150023-林碧芬-ATP7B.pdf	2020-08-21 00:00:00+08	30	30
-551	11150022-李琳-PKHD1.pdf	2020-08-21 00:00:00+08	29	29
-552	11150021-王益儿-PBCKDHA.pdf	2020-08-21 00:00:00+08	28	28
-553	11150020-张婷-SMN1.pdf	2020-08-21 00:00:00+08	11	27
-554	11150019-刘静-IL2RG.pdf	2020-08-21 00:00:00+08	26	26
-555	11150018-蒋海芹-NTRK1.pdf	2020-08-21 00:00:00+08	25	25
-556	11150017-沈浩-STS.pdf	2020-08-21 00:00:00+08	24	24
-557	11150016-杨洁-WAS.pdf	2020-08-21 00:00:00+08	23	23
-558	11150015-张余-COMP.pdf	2020-08-21 00:00:00+08	22	22
-559	11150014-王志浩-GJB2.pdf	2020-08-21 00:00:00+08	21	21
-560	11150013-王珏-PKD1.pdf	2020-08-21 00:00:00+08	20	20
-561	11150012-姜春霞-GRIN2B.pdf	2020-08-21 00:00:00+08	19	19
-562	11150011-谢芳君-ATP7B.pdf	2020-08-21 00:00:00+08	18	18
-563	11150010-叶璟-PKD1.pdf	2020-08-21 00:00:00+08	17	17
-564	11150008-郑向红-IL2RG.pdf	2020-08-21 00:00:00+08	15	15
-565	11150006-赵燕婷-EXT1.pdf	2020-08-21 00:00:00+08	13	13
-566	11150005-夏红燕-DMD.pdf	2020-08-21 00:00:00+08	12	12
-567	11150004-徐绿叶-SMN1.pdf	2020-08-21 00:00:00+08	11	11
-568	11150002-孙洁-ADA.pdf	2020-08-21 00:00:00+08	9	9
-569	11150001-侯晓匀-PKHD1.pdf	2020-08-21 00:00:00+08	8	8
-570	11140007-张梓健-IDS.pdf	2020-08-21 00:00:00+08	7	7
-571	11140006-吴永胜-WAS.pdf	2020-08-21 00:00:00+08	6	6
-572	11140005-叶劲松-PKD1.pdf	2020-08-21 00:00:00+08	5	5
-573	11140004-华峻-FLG.pdf	2020-08-21 00:00:00+08	4	4
-574	11140003-张文栋-DMD.pdf	2020-08-21 00:00:00+08	3	3
-575	11140002-叶连敏-COL1A1.pdf	2020-08-21 00:00:00+08	2	2
-576	11140001-姜璐琰-NTRK1.pdf	2020-08-21 00:00:00+08	1	1
+COPY public.tutorial_person (id, name) FROM stdin;
+1	Jieter
+2	Bradley
+3	A
+4	B
+5	C
+6	D
+7	E
+8	F
+9	G
+10	H
+11	A
+12	B
+13	C
+14	D
+15	E
+16	F
+17	G
+18	H
+19	A
+20	B
+21	C
+22	D
+23	E
+24	F
+25	G
+26	H
+27	A
+28	B
+29	C
+30	D
+31	E
+32	F
+33	G
+34	H
+35	A
+36	B
+37	C
+38	D
+39	E
+40	F
+41	G
+42	H
+43	A
+44	B
+45	C
+46	D
+47	E
+48	F
+49	G
+50	H
+51	A
+52	B
+53	C
+54	D
+55	E
+56	F
+57	G
+58	H
+59	A
+60	B
+61	C
+62	D
+63	E
+64	F
+65	G
+66	H
+67	A
+68	B
+69	C
+70	D
+71	E
+72	F
+73	G
+74	H
+75	A
+76	B
+77	C
+78	D
+79	E
+80	F
+81	G
+82	H
+83	A
+84	B
+85	C
+86	D
+87	E
+88	F
+89	G
+90	H
+91	A
+92	B
+93	C
+94	D
+95	E
+96	F
+97	G
+98	H
 \.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 40, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 10, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 1, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 19, true);
 
 
 --
--- Name: report_clinicalinformation_clinical_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: report_pathogenicity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.report_clinicalinformation_clinical_id_seq', 1, false);
-
-
---
--- Name: report_family_family_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.report_family_family_id_seq', 1, false);
+SELECT pg_catalog.setval('public.report_pathogenicity_id_seq', 1, false);
 
 
 --
--- Name: report_uploadpdf_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: report_report_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.report_uploadpdf_id_seq', 1, false);
+SELECT pg_catalog.setval('public.report_report_id_seq', 1, false);
+
+
+--
+-- Name: report_sample_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.report_sample_id_seq', 1, false);
+
+
+--
+-- Name: tutorial_person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tutorial_person_id_seq', 98, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
 
 
 --
@@ -2436,73 +3269,252 @@ ALTER TABLE ONLY public.django_migrations
 
 
 --
--- Name: report_clinicalinformation report_clinicalinformation_disease_gene_variant_af4425c0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.report_clinicalinformation
-    ADD CONSTRAINT report_clinicalinformation_disease_gene_variant_af4425c0_uniq UNIQUE (disease, gene, variant);
-
-
---
--- Name: report_clinicalinformation report_clinicalinformation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.report_clinicalinformation
-    ADD CONSTRAINT report_clinicalinformation_pkey PRIMARY KEY (clinical_id);
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
 
 
 --
--- Name: report_family report_family_family_name_69281052_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: report_pathogenicity report_pathogenicity_disease_gene_variant_85ce3c1a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.report_family
-    ADD CONSTRAINT report_family_family_name_69281052_uniq UNIQUE (family, name);
-
-
---
--- Name: report_family report_family_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.report_family
-    ADD CONSTRAINT report_family_pkey PRIMARY KEY (family_id);
+ALTER TABLE ONLY public.report_pathogenicity
+    ADD CONSTRAINT report_pathogenicity_disease_gene_variant_85ce3c1a_uniq UNIQUE (disease, gene, variant);
 
 
 --
--- Name: report_uploadpdf report_uploadpdf_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: report_pathogenicity report_pathogenicity_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.report_uploadpdf
-    ADD CONSTRAINT report_uploadpdf_pkey PRIMARY KEY (id);
-
-
---
--- Name: report_uploadpdf_clinical_information_id_5a77c674; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX report_uploadpdf_clinical_information_id_5a77c674 ON public.report_uploadpdf USING btree (clinical_information_id);
+ALTER TABLE ONLY public.report_pathogenicity
+    ADD CONSTRAINT report_pathogenicity_pkey PRIMARY KEY (id);
 
 
 --
--- Name: report_uploadpdf_family_id_6ec5c11e; Type: INDEX; Schema: public; Owner: postgres
+-- Name: report_report report_report_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX report_uploadpdf_family_id_6ec5c11e ON public.report_uploadpdf USING btree (family_id);
-
-
---
--- Name: report_uploadpdf report_uploadpdf_clinical_information_5a77c674_fk_report_cl; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.report_uploadpdf
-    ADD CONSTRAINT report_uploadpdf_clinical_information_5a77c674_fk_report_cl FOREIGN KEY (clinical_information_id) REFERENCES public.report_clinicalinformation(clinical_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE ONLY public.report_report
+    ADD CONSTRAINT report_report_pkey PRIMARY KEY (id);
 
 
 --
--- Name: report_uploadpdf report_uploadpdf_family_id_6ec5c11e_fk_report_family_family_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: report_sample report_sample_family_name_e8dea1f5_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.report_uploadpdf
-    ADD CONSTRAINT report_uploadpdf_family_id_6ec5c11e_fk_report_family_family_id FOREIGN KEY (family_id) REFERENCES public.report_family(family_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE ONLY public.report_sample
+    ADD CONSTRAINT report_sample_family_name_e8dea1f5_uniq UNIQUE (family, name);
+
+
+--
+-- Name: report_sample report_sample_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.report_sample
+    ADD CONSTRAINT report_sample_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tutorial_person tutorial_person_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tutorial_person
+    ADD CONSTRAINT tutorial_person_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: report_report_pathogenicity_id_9b1843a7; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX report_report_pathogenicity_id_9b1843a7 ON public.report_report USING btree (pathogenicity_id);
+
+
+--
+-- Name: report_report_sample_id_6a9a13a6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX report_report_sample_id_6a9a13a6 ON public.report_report USING btree (sample_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: report_report report_report_pathogenicity_id_9b1843a7_fk_report_pa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.report_report
+    ADD CONSTRAINT report_report_pathogenicity_id_9b1843a7_fk_report_pa FOREIGN KEY (pathogenicity_id) REFERENCES public.report_pathogenicity(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: report_report report_report_sample_id_6a9a13a6_fk_report_sample_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.report_report
+    ADD CONSTRAINT report_report_sample_id_6a9a13a6_fk_report_sample_id FOREIGN KEY (sample_id) REFERENCES public.report_sample(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
