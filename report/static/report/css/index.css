@@ -1,3 +1,7 @@
+form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .form-group.inline, .form-group.inline > * {
   display: inline-block !important;
   padding: 0em;
@@ -5,7 +9,7 @@
 
 .form-group.inline {
   margin-right: 3em;
-  padding-left: 1.2em;
+  padding-left: 1.35em;
 }
 
 .form-group.inline .col-form-label {
@@ -17,16 +21,7 @@
   text-align: center;
 }
 
-.nav-link {
-  width: 10em;
-  font-weight: bold;
-  text-align: center;
-}
-.nav-link:hover {
-  color: #007BFF !important;
-}
-
-svg {
-  width: 1.2em;
-  height: 1.2em;
+table th {
+  border-color: #007BFF !important;
+  border-width: 2px !important;
 }

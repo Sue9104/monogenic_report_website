@@ -18,10 +18,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
-from tutorial.views import PersonListView, people_paginate
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('report/', include('report.urls')),
-    path("people/", PersonListView.as_view()),
-    path("people-paginate/", people_paginate),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

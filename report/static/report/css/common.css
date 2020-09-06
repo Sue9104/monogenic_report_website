@@ -1,0 +1,42 @@
+.nav-link {
+  margin-right: 1.1em;
+  font-weight: bold;
+  text-align: center;
+}
+.nav-link:hover {
+  color: #007BFF !important;
+}
+
+svg {
+  margin-top: -3px;
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.navbar-brand {
+  padding-top: 0px;
+}
+.logo-text {
+  display: inline-block;
+  width: 260px;
+  text-align: justify;
+  text-align-last: justify;
+  text-justify: inter-ideograph;
+}
+.logo-text > div:first-child {
+  color: #07D;
+  font-weight: 600;
+  font-size: 18px;
+  width: 255px;
+  text-align: justify;
+  position: relative;
+  top: .65em;
+}
+.logo-text > div:last-child {
+  color: #888;
+  font-size: 10px;
+  width: 255px;
+  text-align: justify;
+  position: relative;
+  bottom: -1.15em;
+}

@@ -1,74 +1,60 @@
+{% extends "report/layout.html" %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- head -->
+{% block title %} 国妇婴单基因病报告数据库-报告上传{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'report/css/upload.css' %}" >
+{% endblock %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'report/bootstrap-4.5.0-dist/css/bootstrap.min.css' %}" >
+<!-- body -->
+{% block content %}
 
-  </head>
-  <body>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'report:index' %}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">上传报告</li>
-      </ol>
-    </nav>
-    <div class="container">
-      {% block content %}
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="family">家系号</label>
-            <input type="text" class="form-control" name="family">
-          </div>
-          <div class="form-group">
-            <label for="name">姓名</label>
-            <input type="text" class="form-control" name="name">
-          </div>
-          <div class="form-group">
-            <label for="disease">疾病</label>
-            <input type="text" class="form-control" name="disease">
-          </div>
-          <div class="form-group">
-            <label for="gene">基因</label>
-            <input type="text" class="form-control" name="gene">
-          </div>
-          <div class="form-group">
-            <label for="variant">致病变异</label>
-            <input type="text" class="form-control" name="variant">
-          </div>
-          <div class="form-group">
-            <label for="pdf">PDF报告</label>
-            <input type="file" class="form-control-file" name="pdf">
-          </div>
-          <button type="submit" class="btn btn-lg btn-primary">上传</button>
-        </form>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'report:index' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">上传报告</li>
+  </ol>
+</nav>
+<div class="container">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="family">家系号</label>
+      <input type="text" class="form-control" name="family">
+    </div>
+    <div class="form-group">
+      <label for="name">姓名</label>
+      <input type="text" class="form-control" name="name">
+    </div>
+    <div class="form-group">
+      <label for="disease">疾病</label>
+      <input type="text" class="form-control" name="disease">
+    </div>
+    <div class="form-group">
+      <label for="gene">基因</label>
+      <input type="text" class="form-control" name="gene">
+    </div>
+    <div class="form-group">
+      <label for="variant">致病变异</label>
+      <input type="text" class="form-control" name="variant">
+    </div>
+    <div class="form-group">
+      <label for="pdf">PDF报告</label>
+      <input type="file" class="form-control-file" name="pdf">
+    </div>
+    <button type="submit" class="btn btn-lg btn-primary">上传</button>
+  </form>
 
-        {% if messages %}
-          <script>
-            {% for msg in messages %}
-              alert('{{ msg.message }}');
-            {% endfor %}
-          </script>
-          <div class="alert alert-success" role="alert">
-          报告上传成功！
-          </div>
-        {% endif %}
+  {% if messages %}
+    <script>
+      {% for msg in messages %}
+        alert('{{ msg.message }}');
+      {% endfor %}
+    </script>
+    <div class="alert alert-success" role="alert">
+    报告上传成功！
+    </div>
+  {% endif %}
+</div>
 
-        <p><a href="{% url 'report:index' %}">Return to home</a></p>
-
-      {% endblock %}
-          </div>
-
-          <!-- Optional JavaScript -->
-          <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-          <script src="{% static 'report/jquery.slim.min.js' %}" ></script>
-          <script src="{% static 'report/popper.min.js' %}" ></script>
-    <script src="{% static 'report/bootstrap-4.5.0-dist/js/bootstrap.min.js' %}" ></script>
-  </body>
-</html>
-
+{% endblock %}
