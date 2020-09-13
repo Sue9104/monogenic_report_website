@@ -20,8 +20,12 @@ form {
   width: 5em;
   text-align: center;
 }
-
+table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
 table th {
   border-color: #007BFF !important;
   border-width: 2px !important;
 }
+

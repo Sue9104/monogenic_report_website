@@ -20,7 +20,7 @@ class Pathogenicity(models.Model):
     variant = models.CharField(max_length = 200, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now = True, blank=True)
     class Meta:
-        ordering = ['disease']
+        ordering = ['-id']
         unique_together = (
             ('disease', 'gene', 'variant')
         )
@@ -30,6 +30,7 @@ class Sample(models.Model):
     name = models.CharField(max_length = 200, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now = True, blank=True)
     class Meta:
+        ordering = ['-id']
         unique_together = (
             ('family', 'name')
         )

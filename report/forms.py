@@ -26,3 +26,4 @@ class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = ('sample', 'pathogenicity', 'pdf')
+

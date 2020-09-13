@@ -1,0 +1,98 @@
+{% extends "report/layout.html" %}
+{% load static %}
+<!-- head -->
+{% block title %} 国妇婴单基因病报告数据库-数据统计{% endblock %}
+{% block css %}
+<script src="{% static 'report/echarts.common.js' %}"></script>
+<!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script> -->
+{% endblock %}
+
+<!-- body -->
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'report:index' %}">首页</a></li>
+    <li class="breadcrumb-item active" aria-current="page">数据统计</li>
+  </ol>
+</nav>
+<div class="container">
+  <div id="counts" class="plot" style="height:300px; width: 800px;"></div>
+  <div id="diseases" class="plot" style="height:300px; width: 800px;"></div>
+  <div id="genes" class="plot" style="height:300px; width: 800px;"></div>
+  <script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var countsChart = echarts.init(document.getElementById('counts'));
+    var diseasesChart = echarts.init(document.getElementById('diseases'));
+    var genesChart = echarts.init(document.getElementById('genes'));
+
+    $.ajax({
+      type: "get",
+      url: "{% url 'report:api-echarts' %}",
+      dataType: "json",
+      success: function (data) {
+        var counts_option = {
+          title: {
+            left: 'center',
+            text: '单基因病报告数目统计图'
+          },
+          tooltip: {},
+          xAxis: {
+              data: data.years
+          },
+          yAxis: {},
+          series: [{
+            name: '数量',
+            type: 'bar',
+            data: data.counts
+          }]
+        };
+
+        var diseases_option = {
+          title: {
+            left: 'center',
+            text: '报告数量前10的单基因病'
+          },
+          tooltip: {},
+          xAxis: {
+            show: true,
+            type: 'category',
+            data: data.top_10_diseases,
+          },
+          yAxis: {},
+          series: [{
+            name: '数量',
+            type: 'bar',
+            data: data.top_10_disease_counts
+          }]
+        };
+
+        var genes_option = {
+          title: {
+            left: 'center',
+            text: '报告数量前10的基因'
+          },
+          tooltip: {},
+          xAxis: {
+              data: data.top_10_genes
+          },
+          yAxis: {},
+          series: [{
+            name: '数量',
+            type: 'bar',
+            data: data.top_10_gene_counts
+          }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        countsChart.setOption(counts_option);
+        diseasesChart.setOption(diseases_option);
+        genesChart.setOption(genes_option);
+      },
+      error: function () {
+        alert('Error: ajax 请求出错！')
+      }
+    });
+  </script>
+</div>
+
+{% endblock %}

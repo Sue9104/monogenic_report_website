@@ -6,6 +6,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'report/jquery-3.5.1.js' %}" ></script>
+    <script src="{% static 'report/popper.min.js' %}" ></script>
+    <script src="{% static 'report/bootstrap-4.5.0-dist/js/bootstrap.min.js' %}" ></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'report/bootstrap-4.5.0-dist/css/bootstrap.min.css' %}" >
     <link rel="stylesheet" href="{% static 'report/css/common.css' %}" >
@@ -23,10 +29,5 @@
     <!-- Content -->
     {% block content %}{% endblock %}
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{% static 'report/jquery.slim.min.js' %}" ></script>
-    <script src="{% static 'report/popper.min.js' %}" ></script>
-    <script src="{% static 'report/bootstrap-4.5.0-dist/js/bootstrap.min.js' %}" ></script>
   </body>
 </html>

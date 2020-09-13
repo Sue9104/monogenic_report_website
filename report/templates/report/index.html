@@ -58,27 +58,31 @@
     </form>
 
   <!-- Display Table -->
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>家系号</th>
-        <th>样本名</th>
-        <th>疾病名称</th>
-        <th>基因</th>
-        <th>上传时间</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for report in latest_reports %}
-      <tr onclick="document.location = '/media/{{ report.pdf }}'; ">
-          <td>{{ report.sample.family }}</td>
-          <td>{{ report.sample.name }}</td>
-          <td>{{ report.pathogenicity.disease }}</td>
-          <td>{{ report.pathogenicity.gene }}</td>
-          <td>{{ report.uploaded_at }}</td>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-fixed">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 12%">家系号</th>
+          <th scope="col" style="width: 13%">样本名</th>
+          <th scope="col" style="width: 15%">疾病名称</th>
+          <th scope="col" style="width: 15%">基因</th>
+          <th scope="col" style="width: 30%">致病位点</th>
+          <th scope="col" style="width: 15%">上传时间</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {% for report in reports %}
+        <tr onclick="document.location = '/media/{{ report.pdf }}'; ">
+            <td>{{ report.sample.family }}</td>
+            <td>{{ report.sample.name }}</td>
+            <td>{{ report.pathogenicity.disease | default_if_none:""}}</td>
+            <td>{{ report.pathogenicity.gene | default_if_none:""}}</td>
+            <td>{{ report.pathogenicity.variant | default_if_none:""}}</td>
+            <td>{{ report.uploaded_at | date:"Y-m-d H:i:s" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}
