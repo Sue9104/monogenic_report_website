@@ -13,9 +13,16 @@ from .forms import ReportForm
 
 # Create your views here.
 class IndexView(ListView):
-    paginate_by = 20
+    paginate_by = 30
     model = Report
     template_name = 'report/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = self.request.GET.urlencode()
+        if context['search'] != '':
+            context['search'] += '&'
+        return context
 
     def get_queryset(self):
         reports = Report.objects.all()

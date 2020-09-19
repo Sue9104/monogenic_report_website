@@ -30,7 +30,7 @@
       success: function (data) {
         var option = {
           tooltip: {},
-          color: ['#001871', '#ff585d', '#ffb549'],
+          color: ['#63b7af', '#ff585d', '#ffb549'],
           grid: [
             {bottom: '70%', left: '20%'},
             {top: '35%', bottom: '35%', left: '20%'},
@@ -61,6 +61,7 @@
             {
               name: '单基因病报告数目统计',
               type: 'bar',
+              barWidth: 50,
               data: data.counts,
               label: {
                 show: true,
