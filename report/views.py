@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView
 from django.db.models import Count
 
@@ -12,21 +12,24 @@ from .models import Sample, Pathogenicity, Report
 from .forms import ReportForm
 
 # Create your views here.
-def index(request):
-    reports = Report.objects.all()
-    if 'family' in request.GET:
-        reports = reports.filter(sample__family__icontains = request.GET['family'])
-    if 'name' in request.GET:
-        reports = reports.filter(sample__name__icontains = request.GET['name'])
-    if 'disease' in request.GET:
-        reports = reports.filter(pathogenicity__disease__icontains = request.GET['disease'])
-    if 'gene' in request.GET:
-        reports = reports.filter(pathogenicity__gene__icontains = request.GET['gene'])
-    if 'variant' in request.GET:
-        reports = reports.filter(pathogenicity__variant__icontains = request.GET['variant'])
-    return render(request, 'report/index.html', {
-        'reports': reports
-    })
+class IndexView(ListView):
+    paginate_by = 20
+    model = Report
+    template_name = 'report/index.html'
+
+    def get_queryset(self):
+        reports = Report.objects.all()
+        if 'family' in self.request.GET:
+            reports = reports.filter(sample__family__icontains = self.request.GET['family'])
+        if 'name' in self.request.GET:
+            reports = reports.filter(sample__name__icontains = self.request.GET['name'])
+        if 'disease' in self.request.GET:
+            reports = reports.filter(pathogenicity__disease__icontains = self.request.GET['disease'])
+        if 'gene' in self.request.GET:
+            reports = reports.filter(pathogenicity__gene__icontains = self.request.GET['gene'])
+        if 'variant' in self.request.GET:
+            reports = reports.filter(pathogenicity__variant__icontains = self.request.GET['variant'])
+        return reports
 
 def model_form_upload(request):
     if request.method == 'POST':
