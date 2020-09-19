@@ -17,76 +17,89 @@
   </ol>
 </nav>
 <div class="container">
-  <div id="counts" class="plot" style="height:300px; width: 800px;"></div>
-  <div id="diseases" class="plot" style="height:300px; width: 800px;"></div>
-  <div id="genes" class="plot" style="height:300px; width: 800px;"></div>
+  <div id="charts" class="plot" style="height:1200px; width: 1000px;"></div>
   <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
-    var countsChart = echarts.init(document.getElementById('counts'));
-    var diseasesChart = echarts.init(document.getElementById('diseases'));
-    var genesChart = echarts.init(document.getElementById('genes'));
+    var statsChart = echarts.init(document.getElementById('charts'));
+    statsChart.showLoading();
 
     $.ajax({
       type: "get",
       url: "{% url 'report:api-echarts' %}",
       dataType: "json",
       success: function (data) {
-        var counts_option = {
+        var option = {
+          tooltip: {},
+          color: ['#001871', '#ff585d', '#ffb549'],
+          grid: [
+            {bottom: '70%', left: '20%'},
+            {top: '35%', bottom: '35%', left: '20%'},
+            {top: '70%', left: '20%'},
+          ],
           title: {
             left: 'center',
-            text: '单基因病报告数目统计图'
+            text: '单基因病报告统计'
           },
-          tooltip: {},
-          xAxis: {
-              data: data.years
-          },
-          yAxis: {},
-          series: [{
-            name: '数量',
-            type: 'bar',
-            data: data.counts
-          }]
-        };
-
-        var diseases_option = {
-          title: {
-            left: 'center',
-            text: '报告数量前10的单基因病'
-          },
-          tooltip: {},
-          xAxis: {
+          legend: {
             show: true,
-            type: 'category',
-            data: data.top_10_diseases,
+            orient: 'vertical',
+            align: 'left',
+            top: '0%',
+            left: '0%',
           },
-          yAxis: {},
-          series: [{
-            name: '数量',
-            type: 'bar',
-            data: data.top_10_disease_counts
-          }]
-        };
-
-        var genes_option = {
-          title: {
-            left: 'center',
-            text: '报告数量前10的基因'
-          },
-          tooltip: {},
-          xAxis: {
-              data: data.top_10_genes
-          },
-          yAxis: {},
-          series: [{
-            name: '数量',
-            type: 'bar',
-            data: data.top_10_gene_counts
-          }]
+          xAxis: [
+            {type: 'category', data: data.years, gridIndex: 0},
+            {gridIndex: 1},
+            {gridIndex: 2},
+          ],
+          yAxis: [
+            {gridIndex: 0},
+            {type: 'category', data: data.top_10_diseases, gridIndex: 1},
+            {type: 'category', data: data.top_10_genes, gridIndex: 2},
+          ],
+          series: [
+            {
+              name: '单基因病报告数目统计',
+              type: 'bar',
+              data: data.counts,
+              label: {
+                show: true,
+                position: 'insideTop',
+                fontWeight: 'bold',
+                fontSize: 16,
+              }
+            },
+            {
+              name: '数量前10的疾病',
+              type: 'bar',
+              data: data.top_10_disease_counts,
+              xAxisIndex: 1,
+              yAxisIndex: 1,
+              label: {
+                show: true,
+                position: 'insideRight',
+                fontWeight: 'bold',
+                fontSize: 16,
+              }
+            },
+            {
+              name: '数量前10的基因',
+              type: 'bar',
+              data: data.top_10_gene_counts,
+              xAxisIndex: 2,
+              yAxisIndex: 2,
+              label: {
+                show: true,
+                position: 'insideRight',
+                fontWeight: 'bold',
+                fontSize: 16,
+              }
+            },
+          ],
         };
         // 使用刚指定的配置项和数据显示图表。
-        countsChart.setOption(counts_option);
-        diseasesChart.setOption(diseases_option);
-        genesChart.setOption(genes_option);
+        statsChart.hideLoading();
+        statsChart.setOption(option);
       },
       error: function () {
         alert('Error: ajax 请求出错！')

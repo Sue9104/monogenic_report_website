@@ -91,7 +91,7 @@ class Statistics(TemplateView):
 def echarts_data(request):
     report_data = Report.objects.all()
     years = [2015, 2016, 2017, 2018, 2019, 2020]
-    counts = [ report_data.filter(uploaded_at__year=y).count() for y in years]
+    counts = [ report_data.filter(sample__updated_at__year=y).count() for y in years]
     genes = report_data.values('pathogenicity__gene')\
         .annotate(gene_counts = Count('sample__family', distinct=True))\
         .order_by('-gene_counts')[0:10]
@@ -102,10 +102,10 @@ def echarts_data(request):
     jsondata = {
         "years": years,
         "counts": counts,
-        "top_10_genes": [x['pathogenicity__gene'] for x in genes],
-        "top_10_gene_counts": [x['gene_counts'] for x in genes],
-        "top_10_diseases": [x['pathogenicity__disease'] for x in diseases],
-        "top_10_disease_counts": [x['disease_counts'] for x in diseases],
+        "top_10_genes": list(reversed([x['pathogenicity__gene'] for x in genes])),
+        "top_10_gene_counts": list(reversed([x['gene_counts'] for x in genes])),
+        "top_10_diseases": list(reversed([x['pathogenicity__disease'] for x in diseases])),
+        "top_10_disease_counts": list(reversed([x['disease_counts'] for x in diseases])),
     }
 
     return JsonResponse(jsondata)
