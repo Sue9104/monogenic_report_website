@@ -19,6 +19,14 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # keep search condition
+        context['family']  = self.request.GET.get('family', '')
+        context['name']    = self.request.GET.get('name', '')
+        context['disease'] = self.request.GET.get('disease', '')
+        context['gene']    = self.request.GET.get('gene', '')
+        context['variant'] = self.request.GET.get('variant', '')
+        
         context['search'] = self.request.GET.urlencode()
         if context['search'] != '':
             context['search'] += '&'
@@ -39,7 +47,9 @@ class IndexView(ListView):
         return reports
 
 def model_form_upload(request):
-    if request.method == 'POST':
+    msg = ''
+    if request.method == 'POST' and request.POST.get('check_value', 0) == '1':
+        print(request.POST)
         #check family and sample name exists
         try:
             sample_obj = Sample.objects.get(
@@ -79,14 +89,18 @@ def model_form_upload(request):
         )
         try:
             report_obj.save()
-            messages.success(request, '报告上传成功！')
-            return HttpResponseRedirect(reverse('report:index'))
+            # messages.success(request, '报告上传成功！')
+            msg = '报告上传成功！'
+            # return HttpResponseRedirect(reverse('report:index'))
         except:
-            messages.error(request, '报告上传失败！')
-            return HttpResponseRedirect(reverse('report:upload'))
+            # messages.error(request, '报告上传失败！')
+            msg = '报告上传失败！'
+        # return HttpResponseRedirect(reverse('report:upload'))
+
     report_form = ReportForm()
     return render(request, 'report/upload.html', {
-        'form': report_form
+        'form': report_form,
+        'msg': msg
     })
 
 
